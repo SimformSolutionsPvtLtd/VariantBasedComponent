@@ -1,7 +1,7 @@
 import React, { useState, type FC } from 'react';
 import { Image, Keyboard, ScrollView, View } from 'react-native';
 import { Icons } from '../../assets';
-import { CustomButton, Label } from '../../components';
+import { CustomButton, CustomText, Label } from '../../components';
 import { Input } from '../../components/input';
 import { useTheme } from '../../hooks';
 import styleSheet from './HomeStyles';
@@ -21,6 +21,9 @@ const HomeScreen: FC = (): React.ReactElement => {
       keyboardShouldPersistTaps="handled"
       keyboardDismissMode="interactive"
     >
+      <CustomText text="Hello" />
+      {/* <CustomText variant="body" text="Hello" />
+      <CustomText variant={'header'} text="THis is sparta" /> */}
       <Input
         enableHighlight
         inputTitleProps={{ variant: 'caption' }}
