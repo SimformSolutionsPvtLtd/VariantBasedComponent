@@ -1,44 +1,72 @@
 import { type ReactNode } from 'react';
-import { type LabelProps } from '../label';
-import type {
-  PressableProps,
-  StyleProp,
-  TextInputProps,
-  TextStyle,
-  ViewProps,
-  ViewStyle
+import {
+  type PressableProps,
+  type StyleProp,
+  type TextInputProps,
+  type TextStyle,
+  type ViewProps,
+  type ViewStyle
 } from 'react-native';
+import { type LabelProps } from '../label';
 
 /**
  * Enum for defining the variant of the input.
+ *
  * @enum {string}
- * @property {'default'} default - Represents the default input variant.
- * @property {'secureEntry'} secureEntry - Represents the secure entry input variant.
- * @property {'error'} error - Represents the error input variant.
- * @property {'success'} success - Represents the success input variant.
+ * @description Represents the different variants of the input.
+ * @property {'default'} default - The default input variant.
+ * @property {'secureEntry'} secureEntry - The secure entry input variant.
+ * @property {'error'} error - The error input variant.
+ * @property {'success'} success - The success input variant.
  */
 export type InputVariant = 'default' | 'secureEntry' | 'error' | 'success';
 
 /**
+ * Props for the input title.
+ *
+ * @interface InputTitleProps
+ * @description Props for the input title.
+ * @property {string} [title] - The title of the input.
+ * @property {Omit<LabelProps, 'text'>} [inputTitleProps] - Props for the input title, excluding the label text.
+ * @property {StyleProp<TextStyle>} [inputStyle] - The style for the input title.
+ */
+export interface InputTitleProps {
+  title?: string;
+  inputTitleProps?: Omit<LabelProps, 'text'>;
+  inputStyle?: StyleProp<TextStyle>;
+}
+
+/**
+ * Props for the sub text view.
+ *
+ * @interface SubTexViewProps
+ * @description Props for the sub text view.
+ * @property {string} [subText] - The sub text to be displayed.
+ * @property {Omit<LabelProps, 'text'>} [subTextLabelProps] - Props for the sub text label, excluding the label text.
+ * @property {StyleProp<TextStyle>} [subTextInputStyle] - The style for the sub text input.
+ */
+export interface SubTexViewProps {
+  subText?: string;
+  subTextLabelProps?: Omit<LabelProps, 'text'>;
+  subTextInputStyle?: StyleProp<TextStyle>;
+}
+
+/**
  * Props for the password input.
- * @property {() => void} onPasswordIconPress - Function to call when the password icon is pressed.
+ *
+ * @interface SecureInputProps
+ * @description Props for the secure input.
+ * @property {() => void} onSecureIconPress - Function to call when the password icon is pressed.
  */
 export interface SecureInputProps {
   onSecureIconPress: () => void;
 }
 
 /**
- * Props for the input title.
- * @property {ViewProps} [containerProps] - Props for the container of the title.
- * @property {Partial<Omit<LabelProps, 'label'>>} [labelProps] - Props for the label, excluding the label text.
- */
-export interface InputTitleProps {
-  containerProps?: ViewProps;
-  labelProps?: Partial<Omit<LabelProps, 'label'>>;
-}
-
-/**
  * Props for the left icon.
+ *
+ * @interface LeftIconProps
+ * @description Props for the left icon.
  * @property {() => void} onLeftIconPress - Function to call when the left icon is pressed.
  * @property {React.ReactElement} leftIcon - The left icon element.
  * @property {Partial<PressableProps>} leftIconPressableProps - Props for the left icon pressable.
@@ -46,15 +74,17 @@ export interface InputTitleProps {
 export interface LeftIconProps {
   onLeftIconPress: () => void;
   leftIcon: React.ReactElement;
-  leftIconPressableProps: Partial<PressableProps>;
+  leftIconPressableProps: Omit<PressableProps, 'onPress'>;
 }
 
 /**
- * Represents the properties for the right icon component.
+ * Props for the right icon.
  *
- * @property {() => void} onRightIconPress - The function to be called when the right icon is pressed.
- * @property {React.ReactElement} rightIcon - The React element representing the right icon.
- * @property {Partial<PressableProps>} rightIconPressableProps - The properties for the pressable component containing the right icon.
+ * @interface RightIconProps
+ * @description Props for the right icon.
+ * @property {() => void} onRightIconPress - Function to call when the right icon is pressed.
+ * @property {React.ReactElement} rightIcon - The right icon element.
+ * @property {Partial<PressableProps>} rightIconPressableProps - Props for the right icon pressable.
  */
 export interface RightIconProps {
   onRightIconPress: () => void;
@@ -64,45 +94,46 @@ export interface RightIconProps {
 
 /**
  * Props for the error view.
+ *
+ * @interface ErrorViewProps
+ * @description Props for the error view.
  * @property {ViewProps} [containerProps] - Props for the container of the error view.
- * @property {Partial<Omit<LabelProps, 'label'>>} [errorLabelProps] - Props for the error label, excluding the label text.
+ * @property {Partial<Omit<LabelProps, 'text'>>} [errorLabelProps] - Props for the error label, excluding the label text.
  */
 export interface ErrorViewProps {
   containerProps?: ViewProps;
-  errorLabelProps?: Partial<Omit<LabelProps, 'label'>>;
+  errorLabelProps?: Partial<Omit<LabelProps, 'text'>>;
 }
 
 /**
- * Props for the input component.
+ * Props for the Input component.
+ *
+ * @interface InputProps
+ * @description This interface defines the properties for the Input component.
  * @extends TextInputProps
- * @property {string} [title] - The title of the input.
+ * @extends Omit<InputTitleProps, 'inputStyle'>
+ * @extends Omit<SubTexViewProps, 'subTextInputStyle'>
  * @property {InputVariant} [variant] - The variant of the input.
- * @property {string} placeholderTextColor - The color of the placeholder text.
- * @property {boolean} enableHighlight - Enables or disables the highlight effect.
- * @property {string} [subText] - The subtext of the input.
- * @property {StyleProp<ViewStyle>} containerStyle - The style of the container.
- * @property {StyleProp<TextStyle>} textInputStyle - The style of the text input.
+ * @property {boolean} enableHighlight - Enables or disables the highlight effect on focus.
+ * @property {StyleProp<ViewStyle>} containerStyle - Styles for the container of the input.
+ * @property {StyleProp<TextStyle>} textInputStyle - Styles for the text input.
  * @property {Partial<SecureInputProps>} [secureInputProps] - Props for the secure input.
- * @property {Omit<LabelProps, 'label'>} [inputTitleProps] - Props for the input title.
  * @property {Partial<LeftIconProps>} [leftIconProps] - Props for the left icon.
  * @property {Partial<RightIconProps>} [rightIconProps] - Props for the right icon.
- * @property {Omit<LabelProps, 'label'>} [subTextLabelProps] - Props for the subtext label.
- * @property {ReactNode} [children] - The children of the input.
+ * @property {ReactNode} [children] - Children components to be rendered inside the input.
  * @property {() => void} [onInputPress] - Function to call when the input is pressed.
  */
-export interface InputProps extends TextInputProps {
-  title?: string;
+export interface InputProps
+  extends TextInputProps,
+    Omit<InputTitleProps, 'inputStyle'>,
+    Omit<SubTexViewProps, 'subTextInputStyle'> {
   variant?: InputVariant;
-  placeholderTextColor: string;
   enableHighlight: boolean;
-  subText?: string;
   containerStyle: StyleProp<ViewStyle>;
   textInputStyle: StyleProp<TextStyle>;
   secureInputProps?: Partial<SecureInputProps>;
-  inputTitleProps?: Omit<LabelProps, 'label'>;
   leftIconProps?: Partial<LeftIconProps>;
   rightIconProps?: Partial<RightIconProps>;
-  subTextLabelProps?: Omit<LabelProps, 'label'>;
   children?: ReactNode;
   onInputPress?: () => void;
 }

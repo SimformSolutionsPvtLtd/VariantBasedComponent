@@ -1,13 +1,31 @@
 import React, { forwardRef, useState } from 'react';
-import { Image, Pressable, StyleSheet, TextInput, View } from 'react-native';
-
+import { Image, Pressable, TextInput, View } from 'react-native';
 import { Icons } from '../../assets';
 import { useTheme } from '../../hooks';
 import { Colors } from '../../theme';
-
 import { Label } from '../label';
 import { inputStyles } from './InputStyles';
-import type { InputProps } from './InputTypes';
+import type { InputProps, InputTitleProps, SubTexViewProps } from './InputTypes';
+
+/**
+ * Render the form input label.
+ */
+const InputTitle = ({ title, inputTitleProps, inputStyle }: InputTitleProps) => {
+  return title ? (
+    <Label variant="captionMedium" text={title} {...inputTitleProps} style={inputStyle} />
+  ) : null;
+};
+
+/**
+ * the input sub text view to show message or error.
+ */
+const SubTexView = ({ subText, subTextLabelProps, subTextInputStyle }: SubTexViewProps) => {
+  return (
+    subText && (
+      <Label variant="caption" text={subText} {...subTextLabelProps} style={subTextInputStyle} />
+    )
+  );
+};
 
 /**
  * The custom text input component.
@@ -51,62 +69,22 @@ const Input = forwardRef<TextInput, Partial<InputProps>>(
       secureInputProps?.onSecureIconPress?.();
     };
 
-    /**
-     * Render the form input label.
-     */
-    const renderInputTitle = () =>
-      title && (
-        <Label
-          variant="captionMedium"
-          label={title}
-          {...inputTitleProps}
-          style={StyleSheet.flatten([styles.titleLabelStyle, inputTitleProps?.style])}
-        />
-      );
-
-    /**
-     * Render the password icon.
-     */
-    const renderSecureEntryIcon = () =>
-      variant === 'secureEntry' && (
-        <Pressable hitSlop={styles.pressableHitSlop} onPress={onSecureEntryIconPress}>
-          <Image
-            source={isSecureEntry ? Icons.eye : Icons.eyeOff}
-            style={styles.passwordIconStyle}
-          />
-        </Pressable>
-      );
-
-    /**
-     * Render the input sub text view to show message or error.
-     */
-    const renderSubTexView = () =>
-      subText && (
-        <Label
-          variant="caption"
-          label={subText}
-          {...subTextLabelProps}
-          style={StyleSheet.flatten([
-            variant === 'error' && styles.errorLabelStyle,
-            variant === 'success' && styles.successLabelStyle,
-            subTextLabelProps?.style
-          ])}
-        />
-      );
-
     return (
       <View>
-        {renderInputTitle()}
+        <InputTitle
+          {...{ title, inputTitleProps }}
+          inputStyle={[styles.titleLabelStyle, inputTitleProps?.style]}
+        />
         <Pressable
           pointerEvents="box-none"
-          style={StyleSheet.flatten([
+          style={[
             styles.container,
             variant === 'error' && styles.errorContainerStyle,
             variant === 'success' && styles.successContainerStyle,
             isFocused && styles.activeColorTextInput,
             multiline && styles.multilineContainerStyle,
             containerStyle
-          ])}
+          ]}
           onPress={onInputPress}
         >
           <View style={styles.innerContainer}>
@@ -115,21 +93,23 @@ const Input = forwardRef<TextInput, Partial<InputProps>>(
                 hitSlop={styles.pressableHitSlop}
                 onPress={leftIconProps?.onLeftIconPress}
                 {...leftIconProps?.leftIconPressableProps}
-                style={StyleSheet.flatten([
+                style={({ pressed }) => [
                   styles.rightPressableStyle,
-                  leftIconProps?.leftIconPressableProps?.style
-                ])}
+                  typeof leftIconProps?.leftIconPressableProps?.style === 'function'
+                    ? leftIconProps?.leftIconPressableProps?.style({ pressed })
+                    : leftIconProps?.leftIconPressableProps?.style ?? undefined
+                ]}
               >
                 {leftIconProps?.leftIcon}
               </Pressable>
             )}
             <TextInput
               ref={ref}
-              style={StyleSheet.flatten([
+              style={[
                 styles.textInputStyle,
                 multiline && styles.multilineTextInputStyle,
                 textInputStyle
-              ])}
+              ]}
               placeholderTextColor={placeholderTextColor ?? Colors[theme]?.gray}
               textAlign={'left'}
               value={value}
@@ -150,18 +130,34 @@ const Input = forwardRef<TextInput, Partial<InputProps>>(
                 hitSlop={styles.pressableHitSlop}
                 onPress={rightIconProps?.onRightIconPress}
                 {...rightIconProps?.rightIconPressableProps}
-                style={StyleSheet.flatten([
+                style={({ pressed }) => [
                   styles.rightPressableStyle,
-                  rightIconProps?.rightIconPressableProps?.style
-                ])}
+                  typeof rightIconProps?.rightIconPressableProps?.style === 'function'
+                    ? rightIconProps.rightIconPressableProps.style({ pressed })
+                    : rightIconProps?.rightIconPressableProps?.style ?? undefined
+                ]}
               >
                 {rightIconProps?.rightIcon}
               </Pressable>
             )}
-            {renderSecureEntryIcon()}
+            {variant === 'secureEntry' && (
+              <Pressable hitSlop={styles.pressableHitSlop} onPress={onSecureEntryIconPress}>
+                <Image
+                  source={isSecureEntry ? Icons.eye : Icons.eyeOff}
+                  style={styles.passwordIconStyle}
+                />
+              </Pressable>
+            )}
           </View>
         </Pressable>
-        {renderSubTexView()}
+        <SubTexView
+          {...{ subText, subTextLabelProps }}
+          subTextInputStyle={[
+            variant === 'error' && styles.errorLabelStyle,
+            variant === 'success' && styles.successLabelStyle,
+            subTextLabelProps?.style
+          ]}
+        />
       </View>
     );
   }

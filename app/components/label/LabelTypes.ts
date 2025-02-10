@@ -1,15 +1,10 @@
-import { fontSizeStyles, fontWeightStyles, labelVariantsStyles } from './LabelStyles';
-import type { TextStyle, StyleProp, TextProps } from 'react-native';
-
-export type FontSizeType = keyof typeof fontSizeStyles;
-
-export type FontWeightType = keyof typeof fontWeightStyles;
+import { type TextProps } from 'react-native';
+import { labelVariantsStyles } from './LabelStyles';
 
 export type LabelVariant = keyof ReturnType<typeof labelVariantsStyles>;
 
-export interface LabelProps extends Omit<TextProps, 'style'> {
+export interface LabelProps extends TextProps {
   children?: React.ReactNode;
-  label: string;
+  text: string;
   variant?: LabelVariant;
-  style?: StyleProp<TextStyle>;
 }

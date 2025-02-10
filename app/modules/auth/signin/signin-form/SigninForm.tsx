@@ -6,8 +6,8 @@ import { useTheme } from '../../../../hooks';
 import { AuthSelectors, useAppSelector } from '../../../../redux';
 import { Colors } from '../../../../theme';
 import styleSheet from './SigninFormStyles';
+import { type SigninFormPropsType } from './SigninFormTypes';
 import { isRemainingToFillForm } from './SigninFormUtils';
-import type { SigninFormPropsType } from './SigninFormTypes';
 
 /**
  * The sign in form component.
@@ -68,7 +68,7 @@ export default function SigninForm({
         buttonStyle={StyleSheet.flatten([styles.spinnerButton, styles.button])}
         disabled={disabled}
         isLoading={loading}
-        label={Strings.Auth.btnSignIn}
+        title={Strings.Auth.btnSignIn}
         onPress={handleSubmit}
       />
     </View>

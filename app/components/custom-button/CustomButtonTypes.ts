@@ -1,6 +1,6 @@
+import { type PressableProps, type StyleProp, type ViewProps, type ViewStyle } from 'react-native';
+import { type LabelProps } from '../label';
 import { buttonVariantStyles } from './CustomButtonStyle';
-import type { LabelProps } from '../label';
-import type { PressableProps, StyleProp, ViewProps, ViewStyle } from 'react-native';
 
 export type ButtonVariant = keyof ReturnType<typeof buttonVariantStyles>;
 
@@ -17,13 +17,13 @@ export type ButtonVariant = keyof ReturnType<typeof buttonVariantStyles>;
  * @property {boolean} [disabled] - Indicates if the button is disabled.
  * @property {Partial<Omit<LabelProps, 'label'>>} [labelProps] - The props for the label, excluding the label text.
  */
-export interface CustomButtonPropsType extends PressableProps {
+export interface CustomButtonPropsType extends Omit<PressableProps, 'style'> {
   variant?: ButtonVariant;
-  label: string;
+  title: string;
   buttonStyle?: StyleProp<ViewStyle>;
   buttonContainerProps?: Partial<ViewProps>;
   isLoading?: boolean;
   onPress: () => void;
   disabled?: boolean;
-  labelProps?: Partial<Omit<LabelProps, 'label'>>;
+  labelProps?: Partial<Omit<LabelProps, 'text'>>;
 }

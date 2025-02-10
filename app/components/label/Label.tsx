@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { Text } from 'react-native';
 import { useTheme } from '../../hooks';
 
 import { labelVariantsStyles } from './LabelStyles';
@@ -14,12 +14,12 @@ import { type LabelProps } from './LabelTypes';
  * @param {TextProps} props.rest - The rest of the Text component props.
  * @returns A Text component with the label text and styles.
  */
-const Label = ({ label, variant = 'body', style, ...rest }: LabelProps) => {
+const Label = ({ text, variant = 'body', style, ...rest }: LabelProps) => {
   const { styles } = useTheme(labelVariantsStyles);
 
   return (
-    <Text style={StyleSheet.flatten([styles[variant], style])} {...rest}>
-      {label}
+    <Text style={[styles[variant], style]} {...rest}>
+      {text}
     </Text>
   );
 };

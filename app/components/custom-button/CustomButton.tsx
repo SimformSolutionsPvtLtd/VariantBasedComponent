@@ -1,9 +1,15 @@
 import React from 'react';
-import { ActivityIndicator, Pressable, StyleSheet, View } from 'react-native';
+import { Pressable, View } from 'react-native';
 import { useTheme } from '../../hooks';
 import { Label } from '../label';
-import { buttonDefaultStyles, buttonVariantStyles } from './CustomButtonStyle';
-import { activityIndicatorColor, getLabelVariant, labelColor } from './CustomButtonUtils';
+import { Spinner } from '../spinner';
+import {
+  activityIndicatorColor,
+  buttonDefaultStyles,
+  buttonVariantStyles,
+  getLabelVariant,
+  labelColor
+} from './CustomButtonStyle';
 import type { CustomButtonPropsType } from './CustomButtonTypes';
 
 /**
@@ -13,7 +19,7 @@ import type { CustomButtonPropsType } from './CustomButtonTypes';
  */
 const CustomButton = ({
   variant = 'solid',
-  label,
+  title,
   buttonStyle,
   buttonContainerProps,
   isLoading = false,
@@ -28,32 +34,27 @@ const CustomButton = ({
   const labelVariant = labelProps?.variant ?? getLabelVariant(variant);
 
   return (
-    <View
-      {...buttonContainerProps}
-      style={StyleSheet.flatten([buttonStyles.container, buttonContainerProps?.style])}
-    >
+    <View {...buttonContainerProps} style={[buttonStyles.container, buttonContainerProps?.style]}>
       <Pressable
-        style={({ pressed }) =>
-          StyleSheet.flatten([
-            buttonStyles.defaultButtonStyle,
-            variantStyles[variant],
-            pressed && buttonStyles.pressedStyle,
-            disabled && buttonStyles.disabledButtonStyle,
-            buttonStyle
-          ])
-        }
+        style={({ pressed }) => [
+          buttonStyles.defaultButtonStyle,
+          variantStyles[variant],
+          pressed && buttonStyles.pressedStyle,
+          disabled && buttonStyles.disabledButtonStyle,
+          buttonStyle
+        ]}
         disabled={isLoading || disabled}
         onPress={onPress}
         {...rest}
       >
         {isLoading ? (
-          <ActivityIndicator color={activityIndicatorColor(variant, theme)} />
+          <Spinner color={activityIndicatorColor(variant, theme)} />
         ) : (
           <Label
             variant={labelVariant}
-            label={label}
+            text={title}
             {...labelProps}
-            style={StyleSheet.flatten([labelProps?.style, { color: labelColor(variant, theme) }])}
+            style={[{ color: labelColor(variant, theme) }, labelProps?.style]}
           />
         )}
       </Pressable>
