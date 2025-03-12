@@ -23,10 +23,20 @@ export const labelVariantsStyles = (theme: ThemeMode) =>
       ...fontWeightStyles.medium,
       color: Colors[theme]?.black
     },
+    error: {
+      ...fontSizeStyles.textSM,
+      ...fontWeightStyles.regular,
+      color: Colors[theme]?.error
+    },
     header: {
       ...fontSizeStyles.displaySM,
       ...fontWeightStyles.medium,
       color: Colors[theme]?.black
+    },
+    success: {
+      ...fontSizeStyles.textSM,
+      ...fontWeightStyles.regular,
+      color: Colors[theme]?.green
     },
     title: {
       ...fontSizeStyles.textLG,

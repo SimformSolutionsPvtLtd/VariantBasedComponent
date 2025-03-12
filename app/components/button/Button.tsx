@@ -1,3 +1,4 @@
+import { debounce } from 'lodash';
 import React from 'react';
 import { Pressable, View } from 'react-native';
 import { useTheme } from '../../hooks';
@@ -9,15 +10,15 @@ import {
   buttonVariantStyles,
   getLabelVariant,
   labelColor
-} from './CustomButtonStyle';
-import type { CustomButtonPropsType } from './CustomButtonTypes';
+} from './ButtonStyle';
+import type { ButtonProps } from './ButtonTypes';
 
 /**
- * The custom button component.
- * @param {CustomButtonPropsType} props - the props for the button component.
+ * The  button component.
+ * @param {ButtonProps} props - the props for the button component.
  * @returns {React.ReactElement} A React Element.
  */
-const CustomButton = ({
+const Button = ({
   variant = 'solid',
   title,
   buttonStyle,
@@ -26,12 +27,24 @@ const CustomButton = ({
   disabled,
   onPress,
   labelProps,
+  debounceTime = 2000,
   ...rest
-}: CustomButtonPropsType) => {
+}: ButtonProps) => {
   const { styles: buttonStyles, theme } = useTheme(buttonDefaultStyles);
   const { styles: variantStyles } = useTheme(buttonVariantStyles);
 
   const labelVariant = labelProps?.variant ?? getLabelVariant(variant);
+
+  // Debounce the onPress function
+  const debouncedOnPress = debounce(
+    (event) => {
+      if (onPress) {
+        onPress(event);
+      }
+    },
+    debounceTime,
+    { leading: true, trailing: false }
+  );
 
   return (
     <View {...buttonContainerProps} style={[buttonStyles.container, buttonContainerProps?.style]}>
@@ -44,7 +57,7 @@ const CustomButton = ({
           buttonStyle
         ]}
         disabled={isLoading || disabled}
-        onPress={onPress}
+        onPress={debouncedOnPress}
         {...rest}
       >
         {isLoading ? (
@@ -52,7 +65,7 @@ const CustomButton = ({
         ) : (
           <Label
             variant={labelVariant}
-            text={title}
+            children={title}
             {...labelProps}
             style={[{ color: labelColor(variant, theme) }, labelProps?.style]}
           />
@@ -62,4 +75,4 @@ const CustomButton = ({
   );
 };
 
-export default CustomButton;
+export default Button;

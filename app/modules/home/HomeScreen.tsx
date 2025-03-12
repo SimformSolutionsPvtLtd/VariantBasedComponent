@@ -1,5 +1,6 @@
 import React, { useState, type FC } from 'react';
-import { Keyboard, ScrollView, View } from 'react-native';
+import { Image, Keyboard, ScrollView, View } from 'react-native';
+import { Icons } from '../../assets';
 import { CustomButton, Label } from '../../components';
 import { Input } from '../../components/input';
 import { useTheme } from '../../hooks';
@@ -13,6 +14,7 @@ const HomeScreen: FC = (): React.ReactElement => {
   const { styles } = useTheme(styleSheet);
   const [value, setValue] = useState<string>('');
   const [subText, setSubText] = useState<string>('');
+  const [isSecureEntry, setIsSecureEntry] = useState<boolean>(true);
 
   return (
     <ScrollView
@@ -23,87 +25,73 @@ const HomeScreen: FC = (): React.ReactElement => {
     >
       <Input
         enableHighlight
+        title="This is ghost"
+        variant="ghost"
         inputTitleProps={{ variant: 'caption' }}
         value={value}
         placeholder="This is placeholder for without title input"
         subText={subText}
         onChangeText={setValue}
-        onKeyPress={(e) => e.preventDefault()}
         onSubmitEditing={Keyboard.dismiss}
       />
-      {/* <Input
+      <Input
         enableHighlight
-        title="This is default"
+        title="This is outlined"
+        variant="outlined"
         inputTitleProps={{ variant: 'caption' }}
         value={value}
-        placeholder="This is placeholder for default input"
+        placeholder="This is placeholder for without title input"
+        errorText="show error message here"
+        onChangeText={setValue}
+        onSubmitEditing={Keyboard.dismiss}
+      />
+      <Input
+        enableHighlight
+        title="This is underlined"
+        variant="underlined"
+        inputTitleProps={{ variant: 'caption' }}
+        value={value}
+        placeholder="This is placeholder for without title input"
+        successText="show success message here"
         onChangeText={setValue}
         onSubmitEditing={Keyboard.dismiss}
       />
 
       <Input
         enableHighlight
-        variant="secureEntry"
+        secureTextEntry={isSecureEntry}
         title="This is secure entry title"
         value={value}
         placeholder="This is placeholder for secure input"
-        onChangeText={setValue}
-        onSubmitEditing={Keyboard.dismiss}
-      />
-
-      <Input
-        enableHighlight
-        variant="success"
-        title="This is success title"
-        value={value}
-        leftIconProps={{
-          leftIcon: <Image source={Icons.eye} style={styles.iconStyle} />
-        }}
         rightIconProps={{
-          onRightIconPress: () => {},
-          rightIcon: <Image source={Icons.eye} style={styles.iconStyle} />
+          onRightIconPress: () => setIsSecureEntry((prev) => !prev),
+          rightIcon: (
+            <Image
+              source={isSecureEntry ? Icons.eye : Icons.eyeOff}
+              style={styles.passwordIconStyle}
+            />
+          )
         }}
-        subText="This is success message"
-        placeholder="This is placeholder for success input"
         onChangeText={setValue}
         onSubmitEditing={Keyboard.dismiss}
       />
-
-      <Input
-        enableHighlight
-        variant="error"
-        title="This is error title"
-        value={value}
-        subText="This is error message"
-        placeholder="This is placeholder for success input"
-        onChangeText={setValue}
-        onSubmitEditing={Keyboard.dismiss}
-      />
-
-      <Input
-        multiline
-        enableHighlight
-        title="This is multiline"
-        value={value}
-        placeholder="This is for multiline placeholder"
-        onChangeText={setValue}
-        onSubmitEditing={Keyboard.dismiss}
-      /> */}
 
       <View style={styles.labelContainer}>
-        <Label variant="title" text="this is" />
-        <Label text="Body Variant" />
-        <Label text="caption Variant" variant="caption" />
-        <Label text="captionMedium Variant" variant="captionMedium" />
-        <Label text="header Variant" variant="header" />
-        <Label text="title Variant" variant="title" />
-        <Label text="Custom Style Variant" style={styles.title} numberOfLines={2} />
+        <Label variant="title" children="this is" />
+        <Label children="Body Variant" />
+        <Label children="caption Variant" variant="caption" />
+        <Label children="captionMedium Variant" variant="captionMedium" />
+        <Label children="header Variant" variant="header" />
+        <Label children="title Variant" variant="title" />
+        <Label children="error Variant" variant="error" />
+        <Label children="success Variant" variant="success" />
+        <Label children="Custom Style Variant" style={styles.title} numberOfLines={2} />
       </View>
 
       <View style={styles.buttonsContainer}>
         <CustomButton
           title="Solid button"
-          onPress={() => setSubText((prev) => (!prev ? 'set net data' : ''))}
+          onPress={() => setSubText((prev) => (!prev ? 'show any other info' : ''))}
         />
         <CustomButton variant="outline" title="Outline button" onPress={() => {}} />
         <CustomButton

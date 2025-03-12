@@ -1,10 +1,10 @@
+import { isEmpty } from 'lodash';
 import React, { forwardRef, useState } from 'react';
-import { Image, Pressable, TextInput, View } from 'react-native';
-import { Icons } from '../../assets';
+import { Pressable, TextInput, View } from 'react-native';
 import { useTheme } from '../../hooks';
 import { Colors } from '../../theme';
 import { Label } from '../label';
-import { inputStyles } from './InputStyles';
+import { inputStyles, inputVariantStyles } from './InputStyles';
 import type { InputProps, InputTitleProps, SubTexViewProps } from './InputTypes';
 
 /**
@@ -12,7 +12,7 @@ import type { InputProps, InputTitleProps, SubTexViewProps } from './InputTypes'
  */
 const InputTitle = ({ title, inputTitleProps, inputStyle }: InputTitleProps) => {
   return title ? (
-    <Label variant="captionMedium" text={title} {...inputTitleProps} style={inputStyle} />
+    <Label variant="captionMedium" children={title} {...inputTitleProps} style={inputStyle} />
   ) : null;
 };
 
@@ -22,7 +22,12 @@ const InputTitle = ({ title, inputTitleProps, inputStyle }: InputTitleProps) => 
 const SubTexView = ({ subText, subTextLabelProps, subTextInputStyle }: SubTexViewProps) => {
   return (
     subText && (
-      <Label variant="caption" text={subText} {...subTextLabelProps} style={subTextInputStyle} />
+      <Label
+        variant="caption"
+        children={subText}
+        {...subTextLabelProps}
+        style={subTextInputStyle}
+      />
     )
   );
 };
@@ -36,13 +41,12 @@ const Input = forwardRef<TextInput, Partial<InputProps>>(
   (
     {
       title,
-      variant = 'default',
+      variant = 'outlined',
       containerStyle,
       placeholderTextColor,
       enableHighlight = false,
       onBlur,
       textInputStyle,
-      secureInputProps,
       inputTitleProps,
       rightIconProps,
       leftIconProps,
@@ -53,21 +57,17 @@ const Input = forwardRef<TextInput, Partial<InputProps>>(
       maxLength,
       value,
       onInputPress = () => {},
+      errorText,
+      successText,
       ...rest
     },
     ref
   ) => {
     const [isFocused, setIsFocused] = useState<boolean>(false);
     const { styles, theme } = useTheme(inputStyles);
-    const [isSecureEntry, setIsSecureEntry] = useState<boolean>(variant === 'secureEntry');
 
-    /**
-     * Handle the password icon press.
-     */
-    const onSecureEntryIconPress = () => {
-      setIsSecureEntry((prev) => !prev);
-      secureInputProps?.onSecureIconPress?.();
-    };
+    const isError = !isEmpty(errorText);
+    const isSuccess = !isEmpty(successText);
 
     return (
       <View>
@@ -79,8 +79,9 @@ const Input = forwardRef<TextInput, Partial<InputProps>>(
           pointerEvents="box-none"
           style={[
             styles.container,
-            variant === 'error' && styles.errorContainerStyle,
-            variant === 'success' && styles.successContainerStyle,
+            inputVariantStyles[variant],
+            isError && styles.errorContainerStyle,
+            isSuccess && styles.successContainerStyle,
             isFocused && styles.activeColorTextInput,
             multiline && styles.multilineContainerStyle,
             containerStyle
@@ -114,15 +115,14 @@ const Input = forwardRef<TextInput, Partial<InputProps>>(
               textAlign={'left'}
               value={value}
               maxLength={maxLength}
-              secureTextEntry={variant === 'secureEntry' && isSecureEntry}
               blurOnSubmit={false}
               multiline={multiline}
-              onFocus={() => (enableHighlight ? setIsFocused(true) : null)}
               onBlur={(e) => {
                 onBlur?.(e);
                 enableHighlight && setIsFocused(false);
               }}
               {...rest}
+              onFocus={() => (enableHighlight ? setIsFocused(true) : null)}
             />
             {children}
             {rightIconProps?.rightIcon && (
@@ -140,24 +140,16 @@ const Input = forwardRef<TextInput, Partial<InputProps>>(
                 {rightIconProps?.rightIcon}
               </Pressable>
             )}
-            {variant === 'secureEntry' && (
-              <Pressable hitSlop={styles.pressableHitSlop} onPress={onSecureEntryIconPress}>
-                <Image
-                  source={isSecureEntry ? Icons.eye : Icons.eyeOff}
-                  style={styles.passwordIconStyle}
-                />
-              </Pressable>
-            )}
           </View>
         </Pressable>
         <SubTexView
           {...{ subText, subTextLabelProps }}
-          subTextInputStyle={[
-            variant === 'error' && styles.errorLabelStyle,
-            variant === 'success' && styles.successLabelStyle,
-            subTextLabelProps?.style
-          ]}
+          subTextInputStyle={[subTextLabelProps?.style]}
         />
+        {isError && <SubTexView subText={errorText} subTextLabelProps={{ variant: 'error' }} />}
+        {isSuccess && (
+          <SubTexView subText={successText} subTextLabelProps={{ variant: 'success' }} />
+        )}
       </View>
     );
   }

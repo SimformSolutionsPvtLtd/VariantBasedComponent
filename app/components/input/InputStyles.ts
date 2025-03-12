@@ -3,6 +3,29 @@ import { Fonts } from '../../assets';
 import { ApplicationStyles, Colors, scale, type ThemeMode } from '../../theme';
 
 /**
+ * Generates a style sheet for input components based on the provided theme.
+ *
+ * @param {ThemeMode} theme - The theme mode to apply to the styles.
+ * @returns A StyleSheet object containing styles for various input component states and elements.
+ */
+export const inputVariantStyles = StyleSheet.create({
+  ghost: {
+    borderWidth: 0,
+    paddingHorizontal: 0,
+    paddingVertical: 0
+  },
+  outlined: {
+    borderWidth: scale(0.7, true)
+  },
+  underlined: {
+    borderBottomWidth: scale(0.7, true),
+    borderRadius: scale(0),
+    borderWidth: 0,
+    paddingHorizontal: 0
+  }
+});
+
+/**
  * Create a custom style sheet for the given theme.
  * @param {StyleSheetOption} theme - The theme to create the style sheet for.
  * @returns A custom style sheet that can be injected into the component.
@@ -22,7 +45,6 @@ export const inputStyles = (theme: ThemeMode) =>
       paddingHorizontal: scale(14),
       paddingVertical: scale(10)
     },
-
     errorContainerStyle: {
       borderColor: Colors[theme]?.red
     },
@@ -43,12 +65,10 @@ export const inputStyles = (theme: ThemeMode) =>
     multilineTextInputStyle: {
       textAlignVertical: 'top'
     },
-
     passwordIconStyle: {
       height: scale(16),
       width: scale(16)
     },
-
     pressableHitSlop: {
       bottom: scale(5),
       left: scale(5),

@@ -8,18 +8,9 @@ import {
   type ViewStyle
 } from 'react-native';
 import { type LabelProps } from '../label';
+import { inputVariantStyles } from './InputStyles';
 
-/**
- * Enum for defining the variant of the input.
- *
- * @enum {string}
- * @description Represents the different variants of the input.
- * @property {'default'} default - The default input variant.
- * @property {'secureEntry'} secureEntry - The secure entry input variant.
- * @property {'error'} error - The error input variant.
- * @property {'success'} success - The success input variant.
- */
-export type InputVariant = 'default' | 'secureEntry' | 'error' | 'success';
+export type InputVariant = keyof typeof inputVariantStyles;
 
 /**
  * Props for the input title.
@@ -49,17 +40,6 @@ export interface SubTexViewProps {
   subText?: string;
   subTextLabelProps?: Omit<LabelProps, 'text'>;
   subTextInputStyle?: StyleProp<TextStyle>;
-}
-
-/**
- * Props for the password input.
- *
- * @interface SecureInputProps
- * @description Props for the secure input.
- * @property {() => void} onSecureIconPress - Function to call when the password icon is pressed.
- */
-export interface SecureInputProps {
-  onSecureIconPress: () => void;
 }
 
 /**
@@ -106,22 +86,22 @@ export interface ErrorViewProps {
 }
 
 /**
- * Props for the Input component.
+ * Comprehensive properties for configuring the Input component.
  *
- * @interface InputProps
- * @description This interface defines the properties for the Input component.
- * @extends TextInputProps
- * @extends Omit<InputTitleProps, 'inputStyle'>
- * @extends Omit<SubTexViewProps, 'subTextInputStyle'>
- * @property {InputVariant} [variant] - The variant of the input.
- * @property {boolean} enableHighlight - Enables or disables the highlight effect on focus.
- * @property {StyleProp<ViewStyle>} containerStyle - Styles for the container of the input.
- * @property {StyleProp<TextStyle>} textInputStyle - Styles for the text input.
- * @property {Partial<SecureInputProps>} [secureInputProps] - Props for the secure input.
- * @property {Partial<LeftIconProps>} [leftIconProps] - Props for the left icon.
- * @property {Partial<RightIconProps>} [rightIconProps] - Props for the right icon.
- * @property {ReactNode} [children] - Children components to be rendered inside the input.
- * @property {() => void} [onInputPress] - Function to call when the input is pressed.
+ * @extends TextInputProps - Inherits properties from the standard TextInput component.
+ * @extends Omit<InputTitleProps, 'inputStyle'> - Includes input title properties, excluding input style.
+ * @extends Omit<SubTexViewProps, 'subTextInputStyle'> - Includes sub text view properties, excluding sub text input style.
+ *
+ * @property {InputVariant} [variant] - Defines the visual style variant of the input.
+ * @property {boolean} enableHighlight - Indicates if the input should visually highlight on interaction.
+ * @property {StyleProp<ViewStyle>} containerStyle - Custom styling for the input's container.
+ * @property {StyleProp<TextStyle>} textInputStyle - Custom styling for the text input field.
+ * @property {Partial<LeftIconProps>} [leftIconProps] - Configuration options for the left icon, if present.
+ * @property {Partial<RightIconProps>} [rightIconProps] - Configuration options for the right icon, if present.
+ * @property {ReactNode} [children] - Additional elements to render within the input component.
+ * @property {() => void} [onInputPress] - Function to execute when the input is pressed.
+ * @property {string} [errorText] - Message to display when an error occurs.
+ * @property {string} [successText] - Message to display when the input operation is successful.
  */
 export interface InputProps
   extends TextInputProps,
@@ -131,9 +111,10 @@ export interface InputProps
   enableHighlight: boolean;
   containerStyle: StyleProp<ViewStyle>;
   textInputStyle: StyleProp<TextStyle>;
-  secureInputProps?: Partial<SecureInputProps>;
   leftIconProps?: Partial<LeftIconProps>;
   rightIconProps?: Partial<RightIconProps>;
   children?: ReactNode;
   onInputPress?: () => void;
+  errorText?: string;
+  successText?: string;
 }

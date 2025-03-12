@@ -21,6 +21,10 @@ const styles = (theme: ThemeMode) =>
       justifyContent: 'center',
       rowGap: scale(20)
     },
+    passwordIconStyle: {
+      height: scale(16),
+      width: scale(16)
+    },
     screenView: {
       backgroundColor: Colors[theme]?.white,
       flex: 1

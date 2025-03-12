@@ -14,12 +14,12 @@ import { type LabelProps } from './LabelTypes';
  * @param {TextProps} props.rest - The rest of the Text component props.
  * @returns A Text component with the label text and styles.
  */
-const Label = ({ text, variant = 'body', style, ...rest }: LabelProps) => {
+const Label = ({ variant = 'body', style, children, ...rest }: LabelProps) => {
   const { styles } = useTheme(labelVariantsStyles);
 
   return (
     <Text style={[styles[variant], style]} {...rest}>
-      {text}
+      {children}
     </Text>
   );
 };

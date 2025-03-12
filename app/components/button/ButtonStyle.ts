@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { ApplicationStyles, Colors, scale, type ThemeMode } from '../../theme';
 import { type LabelVariant } from '../label';
-import { type ButtonVariant } from './CustomButtonTypes';
+import { type ButtonVariant } from './ButtonTypes';
 
 /**
  * Maps the button variant to the corresponding label variant.
