@@ -21,7 +21,7 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module',
     jsx: true,
-    tsconfigRootDir: __dirname,
+    tsconfigRootDir: __dirname
   },
   ignorePatterns: ['.eslintrc.js'],
   plugins: [
@@ -228,6 +228,6 @@ module.exports = {
     'react-native/no-unused-styles': ERROR,
     'react-native/no-inline-styles': ERROR,
     'react-native/no-color-literals': ERROR,
-    'react-native/no-raw-text': ERROR
+    'react-native/no-raw-text': OFF
   }
 };

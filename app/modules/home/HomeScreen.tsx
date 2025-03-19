@@ -14,7 +14,6 @@ const HomeScreen: FC = (): React.ReactElement => {
   const { styles } = useTheme(styleSheet);
   const [value, setValue] = useState<string>('');
   const [subText, setSubText] = useState<string>('');
-  const [isSecureEntry, setIsSecureEntry] = useState<boolean>(true);
 
   return (
     <ScrollView
@@ -53,39 +52,41 @@ const HomeScreen: FC = (): React.ReactElement => {
         value={value}
         placeholder="This is placeholder for without title input"
         successText="show success message here"
+        leftIcon={{
+          icon: <Image source={Icons.eye} style={styles.passwordIconStyle} />
+        }}
+        rightIcon={{
+          icon: <Image source={Icons.eyeOff} style={styles.passwordIconStyle} />,
+          onPress: () => {
+            console.log('right icon pressed');
+          }
+        }}
         onChangeText={setValue}
         onSubmitEditing={Keyboard.dismiss}
       />
 
       <Input
         enableHighlight
-        secureTextEntry={isSecureEntry}
+        secureTextEntry
         title="This is secure entry title"
         value={value}
         placeholder="This is placeholder for secure input"
-        rightIconProps={{
-          onRightIconPress: () => setIsSecureEntry((prev) => !prev),
-          rightIcon: (
-            <Image
-              source={isSecureEntry ? Icons.eye : Icons.eyeOff}
-              style={styles.passwordIconStyle}
-            />
-          )
-        }}
         onChangeText={setValue}
         onSubmitEditing={Keyboard.dismiss}
       />
 
       <View style={styles.labelContainer}>
-        <Label variant="title" children="this is" />
-        <Label children="Body Variant" />
-        <Label children="caption Variant" variant="caption" />
-        <Label children="captionMedium Variant" variant="captionMedium" />
-        <Label children="header Variant" variant="header" />
-        <Label children="title Variant" variant="title" />
-        <Label children="error Variant" variant="error" />
-        <Label children="success Variant" variant="success" />
-        <Label children="Custom Style Variant" style={styles.title} numberOfLines={2} />
+        <Label variant="title">this is title variant</Label>
+        <Label>Body Variant</Label>
+        <Label variant="caption">caption Variant</Label>
+        <Label variant="captionMedium">captionMedium Variant </Label>
+        <Label variant="header">header Variant </Label>
+        <Label variant="title">title Variant </Label>
+        <Label variant="error">error Variant </Label>
+        <Label variant="success">success Variant </Label>
+        <Label style={styles.title} numberOfLines={2}>
+          Custom Style Variant
+        </Label>
       </View>
 
       <View style={styles.buttonsContainer}>
@@ -93,12 +94,21 @@ const HomeScreen: FC = (): React.ReactElement => {
           title="Solid button"
           onPress={() => setSubText((prev) => (!prev ? 'show any other info' : ''))}
         />
-        <CustomButton variant="outline" title="Outline button" onPress={() => {}} />
+        <CustomButton
+          enableDebounce={false}
+          variant="outline"
+          title="Outline button"
+          onPress={() => {
+            console.log('pressing button outline');
+          }}
+        />
         <CustomButton
           variant="hyperlink"
           title="Hyperlink button"
           buttonContainerProps={{ style: { alignSelf: 'center' } }}
-          onPress={() => {}}
+          onPress={() => {
+            console.log('pressing button hyperlink');
+          }}
         />
 
         <CustomButton isLoading title="Solid button" onPress={() => {}} />

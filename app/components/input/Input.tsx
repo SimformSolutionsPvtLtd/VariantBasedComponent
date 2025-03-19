@@ -1,6 +1,7 @@
 import { isEmpty } from 'lodash';
 import React, { forwardRef, useState } from 'react';
-import { Pressable, TextInput, View } from 'react-native';
+import { Image, Pressable, TextInput, View } from 'react-native';
+import { Icons } from '../../assets';
 import { useTheme } from '../../hooks';
 import { Colors } from '../../theme';
 import { Label } from '../label';
@@ -12,7 +13,9 @@ import type { InputProps, InputTitleProps, SubTexViewProps } from './InputTypes'
  */
 const InputTitle = ({ title, inputTitleProps, inputStyle }: InputTitleProps) => {
   return title ? (
-    <Label variant="captionMedium" children={title} {...inputTitleProps} style={inputStyle} />
+    <Label variant="captionMedium" {...inputTitleProps} style={inputStyle}>
+      {title}
+    </Label>
   ) : null;
 };
 
@@ -22,12 +25,9 @@ const InputTitle = ({ title, inputTitleProps, inputStyle }: InputTitleProps) => 
 const SubTexView = ({ subText, subTextLabelProps, subTextInputStyle }: SubTexViewProps) => {
   return (
     subText && (
-      <Label
-        variant="caption"
-        children={subText}
-        {...subTextLabelProps}
-        style={subTextInputStyle}
-      />
+      <Label variant="caption" {...subTextLabelProps} style={subTextInputStyle}>
+        {subText}
+      </Label>
     )
   );
 };
@@ -48,8 +48,8 @@ const Input = forwardRef<TextInput, Partial<InputProps>>(
       onBlur,
       textInputStyle,
       inputTitleProps,
-      rightIconProps,
-      leftIconProps,
+      rightIcon,
+      leftIcon,
       multiline,
       children,
       subTextLabelProps,
@@ -59,15 +59,24 @@ const Input = forwardRef<TextInput, Partial<InputProps>>(
       onInputPress = () => {},
       errorText,
       successText,
+      secureTextEntry,
       ...rest
     },
     ref
   ) => {
     const [isFocused, setIsFocused] = useState<boolean>(false);
     const { styles, theme } = useTheme(inputStyles);
-
+    const [isSecureEntry, setIsSecureEntry] = useState<boolean>(true);
     const isError = !isEmpty(errorText);
     const isSuccess = !isEmpty(successText);
+
+    /**
+     * Toggles the visibility of password input field
+     * Changes the state of isSecureEntry from true to false or vice versa
+     */
+    const handleTogglePassword = () => {
+      setIsSecureEntry((prev) => !prev);
+    };
 
     return (
       <View>
@@ -89,21 +98,7 @@ const Input = forwardRef<TextInput, Partial<InputProps>>(
           onPress={onInputPress}
         >
           <View style={styles.innerContainer}>
-            {leftIconProps?.leftIcon && (
-              <Pressable
-                hitSlop={styles.pressableHitSlop}
-                onPress={leftIconProps?.onLeftIconPress}
-                {...leftIconProps?.leftIconPressableProps}
-                style={({ pressed }) => [
-                  styles.rightPressableStyle,
-                  typeof leftIconProps?.leftIconPressableProps?.style === 'function'
-                    ? leftIconProps?.leftIconPressableProps?.style({ pressed })
-                    : leftIconProps?.leftIconPressableProps?.style ?? undefined
-                ]}
-              >
-                {leftIconProps?.leftIcon}
-              </Pressable>
-            )}
+            {!!leftIcon && leftIcon?.icon && <>{React.cloneElement(leftIcon.icon)}</>}
             <TextInput
               ref={ref}
               style={[
@@ -122,22 +117,21 @@ const Input = forwardRef<TextInput, Partial<InputProps>>(
                 enableHighlight && setIsFocused(false);
               }}
               {...rest}
+              secureTextEntry={secureTextEntry ? isSecureEntry : secureTextEntry}
               onFocus={() => (enableHighlight ? setIsFocused(true) : null)}
             />
             {children}
-            {rightIconProps?.rightIcon && (
-              <Pressable
-                hitSlop={styles.pressableHitSlop}
-                onPress={rightIconProps?.onRightIconPress}
-                {...rightIconProps?.rightIconPressableProps}
-                style={({ pressed }) => [
-                  styles.rightPressableStyle,
-                  typeof rightIconProps?.rightIconPressableProps?.style === 'function'
-                    ? rightIconProps.rightIconPressableProps.style({ pressed })
-                    : rightIconProps?.rightIconPressableProps?.style ?? undefined
-                ]}
-              >
-                {rightIconProps?.rightIcon}
+            {!!rightIcon && rightIcon?.icon && secureTextEntry === undefined && (
+              <Pressable onPress={rightIcon.onPress} {...rightIcon.pressableProps}>
+                {React.cloneElement(rightIcon?.icon)}
+              </Pressable>
+            )}
+            {secureTextEntry !== undefined && (
+              <Pressable onPress={handleTogglePassword}>
+                <Image
+                  source={isSecureEntry ? Icons.eye : Icons.eyeOff}
+                  style={styles.passwordIconStyle}
+                />
               </Pressable>
             )}
           </View>

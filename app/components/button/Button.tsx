@@ -27,7 +27,8 @@ const Button = ({
   disabled,
   onPress,
   labelProps,
-  debounceTime = 2000,
+  debounceTime = 300,
+  enableDebounce = true,
   ...rest
 }: ButtonProps) => {
   const { styles: buttonStyles, theme } = useTheme(buttonDefaultStyles);
@@ -35,16 +36,18 @@ const Button = ({
 
   const labelVariant = labelProps?.variant ?? getLabelVariant(variant);
 
-  // Debounce the onPress function
-  const debouncedOnPress = debounce(
-    (event) => {
-      if (onPress) {
-        onPress(event);
-      }
-    },
-    debounceTime,
-    { leading: true, trailing: false }
-  );
+  // Debounce the onPress function only if enableDebounce is true
+  const handleOnPress = enableDebounce
+    ? debounce(
+        (event) => {
+          if (onPress) {
+            onPress(event);
+          }
+        },
+        debounceTime,
+        { leading: true, trailing: false }
+      )
+    : onPress;
 
   return (
     <View {...buttonContainerProps} style={[buttonStyles.container, buttonContainerProps?.style]}>
@@ -57,7 +60,7 @@ const Button = ({
           buttonStyle
         ]}
         disabled={isLoading || disabled}
-        onPress={debouncedOnPress}
+        onPress={handleOnPress}
         {...rest}
       >
         {isLoading ? (
@@ -65,10 +68,11 @@ const Button = ({
         ) : (
           <Label
             variant={labelVariant}
-            children={title}
             {...labelProps}
             style={[{ color: labelColor(variant, theme) }, labelProps?.style]}
-          />
+          >
+            {title}
+          </Label>
         )}
       </Pressable>
     </View>
