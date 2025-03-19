@@ -1,15 +1,15 @@
 import { StyleSheet } from 'react-native';
 import { ApplicationStyles, Colors, scale, type ThemeMode } from '../../theme';
-import { type LabelVariant } from '../label';
+import { type TextVariant } from '../text';
 import { type ButtonVariant } from './ButtonTypes';
 
 /**
- * Maps the button variant to the corresponding label variant.
+ * Maps the button variant to the corresponding text variant.
  *
  * @param {ButtonVariant} buttonVariant - The variant of the button.
- * @returns {LabelVariant} The corresponding label variant.
+ * @returns {TextVariant} The corresponding text variant.
  */
-export const getLabelVariant = (buttonVariant: ButtonVariant): LabelVariant => {
+export const getTextVariant = (buttonVariant: ButtonVariant): TextVariant => {
   switch (buttonVariant) {
     case 'outline':
     case 'solid':
@@ -48,7 +48,7 @@ export const activityIndicatorColor = (buttonVariant: ButtonVariant, theme: Them
  * @param {ThemeMode} theme - The theme mode of the application. (Unused)
  * @returns {keyof ThemeColors} The color of the activity indicator.
  */
-export const labelColor = (buttonVariant: ButtonVariant, theme: ThemeMode): string => {
+export const textColor = (buttonVariant: ButtonVariant, theme: ThemeMode): string => {
   switch (buttonVariant) {
     case 'outline':
       return Colors[theme]?.lightBlue;

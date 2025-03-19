@@ -6,38 +6,35 @@ import {
   type TextStyle,
   type ViewStyle
 } from 'react-native';
-import { type LabelProps } from '../label';
+import { type TextProps } from '../text';
 import { inputVariantStyles } from './InputStyles';
 
 export type InputVariant = keyof typeof inputVariantStyles;
 
 /**
- * Props for the input title.
- *
+ * Interface for input title component props
  * @interface InputTitleProps
- * @description Props for the input title.
- * @property {string} [title] - The title of the input.
- * @property {Omit<LabelProps, 'text'>} [inputTitleProps] - Props for the input title, excluding the label text.
- * @property {StyleProp<TextStyle>} [inputStyle] - The style for the input title.
+ * @property {string} [title] - Optional title text to be displayed
+ * @property {Omit<TextProps, 'children'>} [inputTitleProps] - Optional props for the input title text component, excluding children prop
+ * @property {StyleProp<TextStyle>} [inputStyle] - Optional style props for customizing the input title appearance
  */
 export interface InputTitleProps {
   title?: string;
-  inputTitleProps?: Omit<LabelProps, 'text'>;
+  inputTitleProps?: Omit<TextProps, 'children'>;
   inputStyle?: StyleProp<TextStyle>;
 }
 
 /**
- * Props for the sub text view.
- *
+ * Interface for SubTexView component properties.
  * @interface SubTexViewProps
- * @description Props for the sub text view.
- * @property {string} [subText] - The sub text to be displayed.
- * @property {Omit<LabelProps, 'text'>} [subTextLabelProps] - Props for the sub text label, excluding the label text.
- * @property {StyleProp<TextStyle>} [subTextInputStyle] - The style for the sub text input.
+ *
+ * @property {string} [subText] - Optional text to display as sub-text.
+ * @property {Omit<TextProps, 'children'>} [subTextProps] - Optional props for the sub-text component, excluding 'children' property.
+ * @property {StyleProp<TextStyle>} [subTextInputStyle] - Optional style object for customizing the sub-text appearance.
  */
 export interface SubTexViewProps {
   subText?: string;
-  subTextLabelProps?: Omit<LabelProps, 'text'>;
+  subTextProps?: Omit<TextProps, 'children'>;
   subTextInputStyle?: StyleProp<TextStyle>;
 }
 

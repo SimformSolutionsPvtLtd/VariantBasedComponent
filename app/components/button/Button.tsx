@@ -2,14 +2,14 @@ import { debounce } from 'lodash';
 import React from 'react';
 import { Pressable, View } from 'react-native';
 import { useTheme } from '../../hooks';
-import { Label } from '../label';
 import { Spinner } from '../spinner';
+import { Text } from '../text';
 import {
   activityIndicatorColor,
   buttonDefaultStyles,
   buttonVariantStyles,
-  getLabelVariant,
-  labelColor
+  getTextVariant,
+  textColor
 } from './ButtonStyle';
 import type { ButtonProps } from './ButtonTypes';
 
@@ -26,7 +26,7 @@ const Button = ({
   isLoading = false,
   disabled,
   onPress,
-  labelProps,
+  titleProps,
   debounceTime = 300,
   enableDebounce = true,
   ...rest
@@ -34,7 +34,7 @@ const Button = ({
   const { styles: buttonStyles, theme } = useTheme(buttonDefaultStyles);
   const { styles: variantStyles } = useTheme(buttonVariantStyles);
 
-  const labelVariant = labelProps?.variant ?? getLabelVariant(variant);
+  const titleVariant = titleProps?.variant ?? getTextVariant(variant);
 
   // Debounce the onPress function only if enableDebounce is true
   const handleOnPress = enableDebounce
@@ -66,13 +66,13 @@ const Button = ({
         {isLoading ? (
           <Spinner color={activityIndicatorColor(variant, theme)} />
         ) : (
-          <Label
-            variant={labelVariant}
-            {...labelProps}
-            style={[{ color: labelColor(variant, theme) }, labelProps?.style]}
+          <Text
+            variant={titleVariant}
+            {...titleProps}
+            style={[{ color: textColor(variant, theme) }, titleProps?.style]}
           >
             {title}
-          </Label>
+          </Text>
         )}
       </Pressable>
     </View>

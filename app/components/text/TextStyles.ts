@@ -2,11 +2,11 @@ import { StyleSheet } from 'react-native';
 import { Colors, fontSizeStyles, fontWeightStyles, type ThemeMode } from '../../theme';
 
 /**
- * Creates a style object for label variants based on the theme mode.
+ * Creates a style object for text variants based on the theme mode.
  * @param {ThemeMode} theme - The theme mode.
- * @returns {Object} An object containing styles for different label variants.
+ * @returns {Object} An object containing styles for different text variants.
  */
-export const labelVariantsStyles = (theme: ThemeMode) =>
+export const textVariantsStyles = (theme: ThemeMode) =>
   StyleSheet.create({
     body: {
       ...fontSizeStyles.textMD,

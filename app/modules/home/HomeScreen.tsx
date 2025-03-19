@@ -1,7 +1,7 @@
 import React, { useState, type FC } from 'react';
 import { Image, Keyboard, ScrollView, View } from 'react-native';
 import { Icons } from '../../assets';
-import { CustomButton, Label } from '../../components';
+import { CustomButton, Text } from '../../components';
 import { Input } from '../../components/input';
 import { useTheme } from '../../hooks';
 import styleSheet from './HomeStyles';
@@ -76,17 +76,17 @@ const HomeScreen: FC = (): React.ReactElement => {
       />
 
       <View style={styles.labelContainer}>
-        <Label variant="title">this is title variant</Label>
-        <Label>Body Variant</Label>
-        <Label variant="caption">caption Variant</Label>
-        <Label variant="captionMedium">captionMedium Variant </Label>
-        <Label variant="header">header Variant </Label>
-        <Label variant="title">title Variant </Label>
-        <Label variant="error">error Variant </Label>
-        <Label variant="success">success Variant </Label>
-        <Label style={styles.title} numberOfLines={2}>
+        <Text variant="title">this is title variant</Text>
+        <Text>Body Variant</Text>
+        <Text variant="caption">caption Variant</Text>
+        <Text variant="captionMedium">captionMedium Variant </Text>
+        <Text variant="header">header Variant </Text>
+        <Text variant="title">title Variant </Text>
+        <Text variant="error">error Variant </Text>
+        <Text variant="success">success Variant </Text>
+        <Text style={styles.title} numberOfLines={2}>
           Custom Style Variant
-        </Label>
+        </Text>
       </View>
 
       <View style={styles.buttonsContainer}>
@@ -121,7 +121,7 @@ const HomeScreen: FC = (): React.ReactElement => {
           disabled
           variant="hyperlink"
           title="Hyperlink button"
-          labelProps={{ variant: 'title', style: { color: 'red' } }}
+          titleProps={{ variant: 'title', style: { color: 'red' } }}
           onPress={() => {}}
         />
       </View>

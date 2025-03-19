@@ -48,7 +48,7 @@ export const inputStyles = (theme: ThemeMode) =>
     errorContainerStyle: {
       borderColor: Colors[theme]?.red
     },
-    errorLabelStyle: {
+    errorTextStyle: {
       color: Colors[theme]?.red,
       marginVertical: scale(3)
     },
@@ -83,7 +83,7 @@ export const inputStyles = (theme: ThemeMode) =>
     successContainerStyle: {
       borderColor: Colors[theme]?.green
     },
-    successLabelStyle: {
+    successTextStyle: {
       color: Colors[theme]?.green,
       marginVertical: scale(3)
     },
@@ -94,7 +94,7 @@ export const inputStyles = (theme: ThemeMode) =>
       fontSize: scale(16, true),
       padding: 0
     },
-    titleLabelStyle: {
+    titleTextStyle: {
       marginBottom: scale(4)
     }
   });

@@ -5,7 +5,7 @@ import {
   type ViewProps,
   type ViewStyle
 } from 'react-native';
-import { type LabelProps } from '../label';
+import { type TextProps } from '../text';
 import { buttonVariantStyles } from './ButtonStyle';
 
 export type ButtonVariant = keyof ReturnType<typeof buttonVariantStyles>;
@@ -21,7 +21,7 @@ export type ButtonVariant = keyof ReturnType<typeof buttonVariantStyles>;
  * @property {boolean} [isLoading] - Indicates if the button is currently loading.
  * @property {(event: GestureResponderEvent) => void} onPress - The function to call when the button is pressed.
  * @property {boolean} [disabled] - Indicates if the button is disabled.
- * @property {Partial<Omit<LabelProps, 'text'>>} [labelProps] - The props for the label, excluding the label text.
+ * @property {Partial<Omit<TextProps, 'children'>>} [titleProps] - The props for the text, excluding the text.
  * @property {number} [debounceTime] - The time in milliseconds to debounce the onPress function.
  * @property {boolean} [enableDebounce] - Whether to enable debounce for the onPress function.
  */
@@ -33,7 +33,7 @@ export interface ButtonProps extends Omit<PressableProps, 'style'> {
   isLoading?: boolean;
   onPress: (event: GestureResponderEvent) => void;
   disabled?: boolean;
-  labelProps?: Partial<Omit<LabelProps, 'text'>>;
+  titleProps?: Partial<Omit<TextProps, 'children'>>;
   debounceTime?: number;
   enableDebounce?: boolean;
 }

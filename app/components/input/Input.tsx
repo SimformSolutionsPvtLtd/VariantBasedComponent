@@ -4,30 +4,30 @@ import { Image, Pressable, TextInput, View } from 'react-native';
 import { Icons } from '../../assets';
 import { useTheme } from '../../hooks';
 import { Colors } from '../../theme';
-import { Label } from '../label';
+import { Text } from '../text';
 import { inputStyles, inputVariantStyles } from './InputStyles';
 import type { InputProps, InputTitleProps, SubTexViewProps } from './InputTypes';
 
 /**
- * Render the form input label.
+ * Render the form input Text.
  */
 const InputTitle = ({ title, inputTitleProps, inputStyle }: InputTitleProps) => {
   return title ? (
-    <Label variant="captionMedium" {...inputTitleProps} style={inputStyle}>
+    <Text variant="captionMedium" {...inputTitleProps} style={inputStyle}>
       {title}
-    </Label>
+    </Text>
   ) : null;
 };
 
 /**
  * the input sub text view to show message or error.
  */
-const SubTexView = ({ subText, subTextLabelProps, subTextInputStyle }: SubTexViewProps) => {
+const SubTexView = ({ subText, subTextProps, subTextInputStyle }: SubTexViewProps) => {
   return (
     subText && (
-      <Label variant="caption" {...subTextLabelProps} style={subTextInputStyle}>
+      <Text variant="caption" {...subTextProps} style={subTextInputStyle}>
         {subText}
-      </Label>
+      </Text>
     )
   );
 };
@@ -52,7 +52,7 @@ const Input = forwardRef<TextInput, Partial<InputProps>>(
       leftIcon,
       multiline,
       children,
-      subTextLabelProps,
+      subTextProps,
       subText,
       maxLength,
       value,
@@ -82,7 +82,7 @@ const Input = forwardRef<TextInput, Partial<InputProps>>(
       <View>
         <InputTitle
           {...{ title, inputTitleProps }}
-          inputStyle={[styles.titleLabelStyle, inputTitleProps?.style]}
+          inputStyle={[styles.titleTextStyle, inputTitleProps?.style]}
         />
         <Pressable
           pointerEvents="box-none"
@@ -136,14 +136,9 @@ const Input = forwardRef<TextInput, Partial<InputProps>>(
             )}
           </View>
         </Pressable>
-        <SubTexView
-          {...{ subText, subTextLabelProps }}
-          subTextInputStyle={[subTextLabelProps?.style]}
-        />
-        {isError && <SubTexView subText={errorText} subTextLabelProps={{ variant: 'error' }} />}
-        {isSuccess && (
-          <SubTexView subText={successText} subTextLabelProps={{ variant: 'success' }} />
-        )}
+        <SubTexView {...{ subText, subTextProps }} subTextInputStyle={[subTextProps?.style]} />
+        {isError && <SubTexView subText={errorText} subTextProps={{ variant: 'error' }} />}
+        {isSuccess && <SubTexView subText={successText} subTextProps={{ variant: 'success' }} />}
       </View>
     );
   }
