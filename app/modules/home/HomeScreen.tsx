@@ -1,5 +1,5 @@
 import React, { useState, type FC } from 'react';
-import { Image, Keyboard, ScrollView, View } from 'react-native';
+import { Alert, Image, Keyboard, ScrollView, View } from 'react-native';
 import { Icons } from '../../assets';
 import { CustomButton, Text } from '../../components';
 import { Input } from '../../components/input';
@@ -73,6 +73,18 @@ const HomeScreen: FC = (): React.ReactElement => {
         placeholder="This is placeholder for secure input"
         onChangeText={setValue}
         onSubmitEditing={Keyboard.dismiss}
+      />
+
+      <Input
+        enableHighlight
+        title="This is input as alert"
+        variant="outlined"
+        inputTitleProps={{ variant: 'caption' }}
+        value={'Tap to see alert'}
+        placeholder="This is placeholder input props"
+        onInputPress={() => {
+          Alert.alert('Alert', 'This is alert message', [{ text: 'OK' }]);
+        }}
       />
 
       <View style={styles.labelContainer}>

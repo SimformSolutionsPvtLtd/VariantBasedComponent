@@ -1,5 +1,6 @@
-import { type ReactNode } from 'react';
+import { type ForwardedRef } from 'react';
 import {
+  TextInput,
   type PressableProps,
   type StyleProp,
   type TextInputProps,
@@ -52,6 +53,24 @@ export interface SideIconProps {
   icon: React.ReactElement;
   pressableProps: Omit<PressableProps, 'onPress'>;
 }
+
+export interface BaseInputProps extends TextInputProps {
+  ref: ForwardedRef<TextInput>;
+  variant?: InputVariant;
+  isError: boolean;
+  isSuccess: boolean;
+  enableHighlight?: boolean;
+  containerStyle?: StyleProp<ViewStyle>;
+  textInputStyle?: StyleProp<TextStyle>;
+  leftIcon?: Pick<SideIconProps, 'icon'>;
+  rightIcon?: Partial<SideIconProps>;
+  onInputPress?: () => void;
+}
+
+// export interface PressableWrapperProps extends BaseInputProps {
+//   onInputPress?: () => void;
+// }
+
 /**
  * Comprehensive properties for configuring the Input component.
  *
@@ -72,17 +91,9 @@ export interface SideIconProps {
  * @property {string} [successText] - Success message to display
  */
 export interface InputProps
-  extends TextInputProps,
+  extends Omit<BaseInputProps, 'isError' | 'isSuccess'>,
     Omit<InputTitleProps, 'inputStyle'>,
     Omit<SubTexViewProps, 'subTextInputStyle'> {
-  variant?: InputVariant;
-  enableHighlight: boolean;
-  containerStyle: StyleProp<ViewStyle>;
-  textInputStyle: StyleProp<TextStyle>;
-  leftIcon?: Pick<SideIconProps, 'icon'>;
-  rightIcon?: Partial<SideIconProps>;
-  children?: ReactNode;
-  onInputPress?: () => void;
   errorText?: string;
   successText?: string;
 }
