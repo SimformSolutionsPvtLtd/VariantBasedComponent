@@ -62,10 +62,7 @@ export default function SigninForm({
       />
       <Text style={styles.errorMsg}>{fieldErrorPassword}</Text>
       <CustomButton
-        buttonContainerProps={{
-          style: StyleSheet.flatten([styles.buttonContainer, styles.buttonTopMargin])
-        }}
-        buttonStyle={StyleSheet.flatten([styles.spinnerButton, styles.button])}
+        style={StyleSheet.flatten([styles.spinnerButton, styles.button])}
         disabled={disabled}
         isLoading={loading}
         title={Strings.Auth.btnSignIn}
