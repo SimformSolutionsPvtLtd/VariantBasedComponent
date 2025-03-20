@@ -22,14 +22,12 @@ const InputTitle = ({ title, inputTitleProps, inputStyle }: InputTitleProps) => 
 /**
  * the input sub text view to show message or error.
  */
-const SubTexView = ({ subText, subTextProps, subTextInputStyle }: SubTexViewProps) => {
-  return (
-    subText && (
-      <Text variant="caption" {...subTextProps} style={subTextInputStyle}>
-        {subText}
-      </Text>
-    )
-  );
+const SubTextView = ({ subText, subTextProps, subTextInputStyle }: SubTexViewProps) => {
+  return subText ? (
+    <Text variant="caption" {...subTextProps} style={subTextInputStyle}>
+      {subText}
+    </Text>
+  ) : null;
 };
 
 /**
@@ -51,7 +49,6 @@ const Input = forwardRef<TextInput, Partial<InputProps>>(
       rightIcon,
       leftIcon,
       multiline,
-      children,
       subTextProps,
       subText,
       maxLength,
@@ -79,66 +76,71 @@ const Input = forwardRef<TextInput, Partial<InputProps>>(
     };
 
     return (
-      <View>
-        <InputTitle
-          {...{ title, inputTitleProps }}
-          inputStyle={[styles.titleTextStyle, inputTitleProps?.style]}
-        />
-        <Pressable
-          pointerEvents="box-none"
-          style={[
-            styles.container,
-            inputVariantStyles[variant],
-            isError && styles.errorContainerStyle,
-            isSuccess && styles.successContainerStyle,
-            isFocused && styles.activeColorTextInput,
-            multiline && styles.multilineContainerStyle,
-            containerStyle
-          ]}
-          onPress={onInputPress}
-        >
-          <View style={styles.innerContainer}>
-            {!!leftIcon && leftIcon?.icon && <>{React.cloneElement(leftIcon.icon)}</>}
-            <TextInput
-              ref={ref}
-              style={[
-                styles.textInputStyle,
-                multiline && styles.multilineTextInputStyle,
-                textInputStyle
-              ]}
-              placeholderTextColor={placeholderTextColor ?? Colors[theme]?.gray}
-              textAlign={'left'}
-              value={value}
-              maxLength={maxLength}
-              blurOnSubmit={false}
-              multiline={multiline}
-              onBlur={(e) => {
-                onBlur?.(e);
-                enableHighlight && setIsFocused(false);
-              }}
-              {...rest}
-              secureTextEntry={secureTextEntry ? isSecureEntry : secureTextEntry}
-              onFocus={() => (enableHighlight ? setIsFocused(true) : null)}
-            />
-            {children}
-            {!!rightIcon && rightIcon?.icon && secureTextEntry === undefined && (
-              <Pressable onPress={rightIcon.onPress} {...rightIcon.pressableProps}>
-                {React.cloneElement(rightIcon?.icon)}
-              </Pressable>
-            )}
-            {secureTextEntry !== undefined && (
-              <Pressable onPress={handleTogglePassword}>
-                <Image
-                  source={isSecureEntry ? Icons.eye : Icons.eyeOff}
-                  style={styles.passwordIconStyle}
-                />
-              </Pressable>
-            )}
+      <View style={styles.wrapper}>
+        {title ? (
+          <InputTitle {...{ title, inputTitleProps }} inputStyle={inputTitleProps?.style} />
+        ) : null}
+        <Pressable onPress={onInputPress}>
+          <View
+            pointerEvents="box-none"
+            style={[
+              styles.container,
+              inputVariantStyles[variant],
+              isError && styles.errorContainerStyle,
+              isSuccess && styles.successContainerStyle,
+              isFocused && styles.activeColorTextInput,
+              multiline && styles.multilineContainerStyle,
+              containerStyle
+            ]}
+          >
+            <View style={styles.innerContainer}>
+              {!!leftIcon && React.isValidElement(leftIcon?.icon) ? leftIcon.icon : null}
+              <TextInput
+                ref={ref}
+                style={[
+                  styles.textInputStyle,
+                  multiline && styles.multilineTextInputStyle,
+                  textInputStyle
+                ]}
+                placeholderTextColor={placeholderTextColor ?? Colors[theme]?.gray}
+                textAlign={'left'}
+                value={value}
+                maxLength={maxLength}
+                blurOnSubmit={false}
+                multiline={multiline}
+                onBlur={(e) => {
+                  onBlur?.(e);
+                  enableHighlight && setIsFocused(false);
+                }}
+                {...rest}
+                secureTextEntry={secureTextEntry ? isSecureEntry : secureTextEntry}
+                onFocus={() => (enableHighlight ? setIsFocused(true) : null)}
+              />
+              {!!rightIcon &&
+              React.isValidElement(rightIcon?.icon) &&
+              secureTextEntry === undefined ? (
+                <Pressable onPress={rightIcon.onPress} {...rightIcon.pressableProps}>
+                  {rightIcon?.icon}
+                </Pressable>
+              ) : null}
+              {secureTextEntry !== undefined ? (
+                <Pressable onPress={handleTogglePassword}>
+                  <Image
+                    source={isSecureEntry ? Icons.eye : Icons.eyeOff}
+                    style={styles.passwordIconStyle}
+                  />
+                </Pressable>
+              ) : null}
+            </View>
           </View>
         </Pressable>
-        <SubTexView {...{ subText, subTextProps }} subTextInputStyle={[subTextProps?.style]} />
-        {isError && <SubTexView subText={errorText} subTextProps={{ variant: 'error' }} />}
-        {isSuccess && <SubTexView subText={successText} subTextProps={{ variant: 'success' }} />}
+        {subText ? (
+          <SubTextView {...{ subText, subTextProps }} subTextInputStyle={subTextProps?.style} />
+        ) : null}
+        {isError ? <SubTextView subText={errorText} subTextProps={{ variant: 'error' }} /> : null}
+        {isSuccess ? (
+          <SubTextView subText={successText} subTextProps={{ variant: 'success' }} />
+        ) : null}
       </View>
     );
   }

@@ -94,7 +94,7 @@ export const inputStyles = (theme: ThemeMode) =>
       fontSize: scale(16, true),
       padding: 0
     },
-    titleTextStyle: {
-      marginBottom: scale(4)
+    wrapper: {
+      rowGap: scale(4)
     }
   });

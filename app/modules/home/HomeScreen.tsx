@@ -105,7 +105,6 @@ const HomeScreen: FC = (): React.ReactElement => {
         <CustomButton
           variant="hyperlink"
           title="Hyperlink button"
-          buttonContainerProps={{ style: { alignSelf: 'center' } }}
           onPress={() => {
             console.log('pressing button hyperlink');
           }}

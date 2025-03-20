@@ -1,10 +1,4 @@
-import {
-  type GestureResponderEvent,
-  type PressableProps,
-  type StyleProp,
-  type ViewProps,
-  type ViewStyle
-} from 'react-native';
+import { type GestureResponderEvent, type PressableProps } from 'react-native';
 import { type TextProps } from '../text';
 import { buttonVariantStyles } from './ButtonStyle';
 
@@ -16,8 +10,6 @@ export type ButtonVariant = keyof ReturnType<typeof buttonVariantStyles>;
  *
  * @property {ButtonVariant} [variant] - The variant of the button.
  * @property {string} title - The title text of the button.
- * @property {StyleProp<ViewStyle>} [buttonStyle] - The custom style for the button.
- * @property {Partial<ViewProps>} [buttonContainerProps] - The props for the button container.
  * @property {boolean} [isLoading] - Indicates if the button is currently loading.
  * @property {(event: GestureResponderEvent) => void} onPress - The function to call when the button is pressed.
  * @property {boolean} [disabled] - Indicates if the button is disabled.
@@ -25,11 +17,9 @@ export type ButtonVariant = keyof ReturnType<typeof buttonVariantStyles>;
  * @property {number} [debounceTime] - The time in milliseconds to debounce the onPress function.
  * @property {boolean} [enableDebounce] - Whether to enable debounce for the onPress function.
  */
-export interface ButtonProps extends Omit<PressableProps, 'style'> {
+export interface ButtonProps extends PressableProps {
   variant?: ButtonVariant;
   title: string;
-  buttonStyle?: StyleProp<ViewStyle>;
-  buttonContainerProps?: Partial<ViewProps>;
   isLoading?: boolean;
   onPress: (event: GestureResponderEvent) => void;
   disabled?: boolean;
