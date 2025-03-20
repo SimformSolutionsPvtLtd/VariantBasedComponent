@@ -126,26 +126,17 @@ const BaseInput = ({
 };
 
 /**
- * HOC that wraps the input with a Pressable if onInputPress is provided
- * @param Component - The component to wrap
- * @returns A component wrapped with conditional Pressable
+ * Component that conditionally wraps children with a Pressable if onInputPress is provided
+ * @param props - Component props with children and onInputPress
+ * @returns Children with or without Pressable wrapper
  */
-const withPressableWrapper = (Component: React.ComponentType<BaseInputProps>) => {
-  return ({ onInputPress, ...rest }: BaseInputProps) => {
-    if (onInputPress) {
-      return (
-        <Pressable onPress={onInputPress}>
-          <Component {...rest} onInputPress={onInputPress} />
-        </Pressable>
-      );
-    }
-    return <Component {...rest} />;
-  };
-};
-
-// Create the enhanced BaseInput with pressable wrapper
-const PressableBaseInput = withPressableWrapper(BaseInput);
-
+const PressableInputWrapper = ({
+  onInputPress,
+  children
+}: {
+  onInputPress?: () => void;
+  children: React.ReactNode;
+}) => (onInputPress ? <Pressable onPress={onInputPress}>{children}</Pressable> : children);
 /**
  * The custom text input component.
  * @param {Partial<InputProps> & TextInputProps} props - the props for the custom text input component.
@@ -175,13 +166,15 @@ const Input = forwardRef<TextInput, Partial<InputProps>>(
         {title ? (
           <InputTitle {...{ title, inputTitleProps }} inputStyle={inputTitleProps?.style} />
         ) : null}
-        <PressableBaseInput
-          isSuccess={isSuccess}
-          isError={isError}
-          ref={ref}
-          onInputPress={onInputPress}
-          {...rest}
-        />
+        <PressableInputWrapper onInputPress={onInputPress}>
+          <BaseInput
+            isSuccess={isSuccess}
+            isError={isError}
+            ref={ref}
+            onInputPress={onInputPress}
+            {...rest}
+          />
+        </PressableInputWrapper>
         {subText ? (
           <SubTextView {...{ subText, subTextProps }} subTextInputStyle={subTextProps?.style} />
         ) : null}
