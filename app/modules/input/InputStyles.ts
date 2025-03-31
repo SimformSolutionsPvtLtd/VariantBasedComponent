@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Colors, type ThemeMode } from '../../theme';
+import { Colors, scale, type ThemeMode } from '../../theme';
 
 /**
  * A StyleSheet object that contains all of the home screen styles.
@@ -8,13 +8,16 @@ import { Colors, type ThemeMode } from '../../theme';
  */
 const styles = (theme: ThemeMode) =>
   StyleSheet.create({
-    screenView: {
-      alignItems: 'center',
+    inputContainer: {
       backgroundColor: Colors[theme]?.white,
-      flex: 1,
-      paddingHorizontal: 20,
-      paddingTop: 40,
-      rowGap: 20
+      paddingBottom: scale(40),
+      paddingHorizontal: scale(20),
+      paddingTop: scale(20),
+      rowGap: scale(20)
+    },
+    passwordIconStyle: {
+      height: scale(16),
+      width: scale(16)
     }
   });
 

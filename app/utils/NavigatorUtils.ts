@@ -283,15 +283,7 @@ export function getLinkConfiguration(): LinkingOptions<ReactNavigation.RootParam
       screens: {
         [ROUTES.Home]: {
           path: 'home'
-        },
-        [ROUTES.SignIn]: {
-          path: 'signIn'
-        },
-        [ROUTES.Details]: {
-          path: 'details'
-        },
-        // Used as catch-all - there is a "Home" in signed-in and signed-out stacks!
-        [ROUTES.NotFound]: '*'
+        }
         // Below a sample of deep link configuration
         /*[ROUTES.Launch]: {
           path: 'launch',

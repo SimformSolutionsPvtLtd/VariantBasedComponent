@@ -1,4 +1,3 @@
-import { isEmpty } from 'lodash';
 import React, { forwardRef, useState } from 'react';
 import { Image, Pressable, TextInput, View } from 'react-native';
 import { Icons } from '../../assets';
@@ -6,124 +5,125 @@ import { useTheme } from '../../hooks';
 import { Colors } from '../../theme';
 import { Text } from '../text';
 import { inputStyles, inputVariantStyles } from './InputStyles';
-import type { BaseInputProps, InputProps, InputTitleProps, SubTexViewProps } from './InputTypes';
+import type { BaseInputProps, InputProps, InputTitleProps, MessageViewProps } from './InputTypes';
 
 /**
  * Render the form input Text.
  */
-const InputTitle = ({ title, inputTitleProps, inputStyle }: InputTitleProps) => {
+const InputTitle = ({ title, inputTitleProps }: InputTitleProps) => {
   return title ? (
-    <Text variant="captionMedium" {...inputTitleProps} style={inputStyle}>
+    <Text variant="captionMedium" {...inputTitleProps}>
       {title}
     </Text>
   ) : null;
 };
 
 /**
- * the input sub text view to show message or error.
+ * A component that conditionally renders a message as a Text element
+ * @returns {React.ReactElement | null} Returns Text element with message if message exists, null otherwise
  */
-const SubTextView = ({ subText, subTextProps, subTextInputStyle }: SubTexViewProps) => {
-  return subText ? (
-    <Text variant="caption" {...subTextProps} style={subTextInputStyle}>
-      {subText}
-    </Text>
-  ) : null;
+const MessageView = ({ message, messageProps }: MessageViewProps) => {
+  return message ? <Text {...messageProps}>{message}</Text> : null;
 };
 
 /**
  * Input
  * @returns
  */
-const BaseInput = ({
-  ref,
-  variant = 'outlined',
-  isError,
-  isSuccess,
-  multiline,
-  containerStyle,
-  leftIcon,
-  textInputStyle,
-  placeholderTextColor,
-  value,
-  maxLength,
-  onBlur,
-  enableHighlight,
-  secureTextEntry,
-  rightIcon,
-  onInputPress,
-  ...rest
-}: BaseInputProps) => {
-  const [isFocused, setIsFocused] = useState<boolean>(false);
-  const { styles, theme } = useTheme(inputStyles);
-  const [isSecureEntry, setIsSecureEntry] = useState<boolean>(true);
+const BaseInput = forwardRef<TextInput, BaseInputProps>(
+  (
+    {
+      variant = 'outlined',
+      isError,
+      isSuccess,
+      multiline,
+      containerStyle,
+      leftIcon,
+      textInputStyle,
+      placeholderTextColor,
+      value,
+      maxLength,
+      onBlur,
+      enableHighlight,
+      secureTextEntry,
+      rightIcon,
+      onInputPress,
+      ...rest
+    },
+    ref
+  ) => {
+    const [isFocused, setIsFocused] = useState<boolean>(false);
+    const { styles, theme } = useTheme(inputStyles);
+    const [isSecureEntry, setIsSecureEntry] = useState<boolean>(true);
 
-  /**
-   * Toggles the visibility of password input field
-   * Changes the state of isSecureEntry from true to false or vice versa
-   */
-  const handleTogglePassword = () => {
-    setIsSecureEntry((prev) => !prev);
-  };
-  return (
-    <View
-      pointerEvents="box-none"
-      style={[
-        styles.container,
-        inputVariantStyles[variant],
-        isError && styles.errorContainerStyle,
-        isSuccess && styles.successContainerStyle,
-        isFocused && styles.activeColorTextInput,
-        multiline && styles.multilineContainerStyle,
-        containerStyle
-      ]}
-    >
-      <View style={styles.innerContainer}>
-        {!!leftIcon && React.isValidElement(leftIcon?.icon) ? leftIcon.icon : null}
-        <TextInput
-          ref={ref}
-          style={[
-            styles.textInputStyle,
-            multiline && styles.multilineTextInputStyle,
-            textInputStyle
-          ]}
-          placeholderTextColor={placeholderTextColor ?? Colors[theme]?.gray}
-          textAlign={'left'}
-          value={value}
-          maxLength={maxLength}
-          editable={onInputPress ? false : true}
-          blurOnSubmit={false}
-          multiline={multiline}
-          onBlur={(e) => {
-            onBlur?.(e);
-            enableHighlight && setIsFocused(false);
-          }}
-          {...rest}
-          secureTextEntry={secureTextEntry ? isSecureEntry : secureTextEntry}
-          onFocus={() => (enableHighlight ? setIsFocused(true) : null)}
-          onTouchStart={(e) => {
-            if (onInputPress) {
-              onInputPress?.();
-              e.stopPropagation();
-            }
-          }}
-        />
-        {!!rightIcon && React.isValidElement(rightIcon?.icon) && secureTextEntry === undefined ? (
-          <Pressable onPress={rightIcon.onPress} {...rightIcon.pressableProps}>
-            {rightIcon?.icon}
-          </Pressable>
-        ) : null}
-        {secureTextEntry !== undefined ? (
-          <Pressable onPress={handleTogglePassword}>
-            <Image
-              source={isSecureEntry ? Icons.eye : Icons.eyeOff}
-              style={styles.passwordIconStyle}
-            />
-          </Pressable>
-        ) : null}
+    /**
+     * Toggles the visibility of password input field
+     */
+    const handleTogglePassword = () => {
+      setIsSecureEntry((prev) => !prev);
+    };
+
+    return (
+      <View
+        pointerEvents="box-none"
+        style={[
+          styles.container,
+          inputVariantStyles[variant],
+          isError && styles.errorContainerStyle,
+          isSuccess && styles.successContainerStyle,
+          isFocused && styles.activeColorTextInput,
+          multiline && styles.multilineContainerStyle,
+          containerStyle
+        ]}
+      >
+        <View style={styles.innerContainer}>
+          {!!leftIcon && React.isValidElement(leftIcon?.icon) ? leftIcon.icon : null}
+          <TextInput
+            style={[
+              styles.textInputStyle,
+              multiline && styles.multilineTextInputStyle,
+              textInputStyle
+            ]}
+            placeholderTextColor={placeholderTextColor ?? Colors[theme]?.gray}
+            textAlign={'left'}
+            value={value}
+            maxLength={maxLength}
+            editable={onInputPress ? false : true}
+            blurOnSubmit={false}
+            multiline={multiline}
+            onBlur={(e) => {
+              onBlur?.(e);
+              enableHighlight && setIsFocused(false);
+            }}
+            {...rest}
+            ref={ref}
+            secureTextEntry={secureTextEntry ? isSecureEntry : secureTextEntry}
+            onFocus={() => (enableHighlight ? setIsFocused(true) : null)}
+            onTouchStart={(e) => {
+              if (onInputPress) {
+                onInputPress?.();
+                e.stopPropagation();
+              }
+            }}
+          />
+          {!!rightIcon && React.isValidElement(rightIcon?.icon) && secureTextEntry === undefined ? (
+            <Pressable onPress={rightIcon.onPress} {...rightIcon.pressableProps}>
+              {rightIcon?.icon}
+            </Pressable>
+          ) : null}
+          {secureTextEntry ? (
+            <Pressable onPress={handleTogglePassword}>
+              <Image
+                source={isSecureEntry ? Icons.eye : Icons.eyeOff}
+                style={styles.passwordIconStyle}
+              />
+            </Pressable>
+          ) : null}
+        </View>
       </View>
-    </View>
-  );
-};
+    );
+  }
+);
 
 /**
  * Component that conditionally wraps children with a Pressable if onInputPress is provided
@@ -143,45 +143,25 @@ const PressableInputWrapper = ({
  * @returns {React.ReactElement} A React Element.
  */
 const Input = forwardRef<TextInput, Partial<InputProps>>(
-  (
-    {
-      title,
-      inputTitleProps,
-      subTextProps,
-      subText,
-      onInputPress,
-      errorText,
-      successText,
-      ...rest
-    },
-    ref
-  ) => {
+  ({ title, inputTitleProps, onInputPress, message, messageProps, ...rest }, ref) => {
     const { styles } = useTheme(inputStyles);
 
-    const isError = !isEmpty(errorText);
-    const isSuccess = !isEmpty(successText);
+    const isError = messageProps?.variant === 'error';
+    const isSuccess = messageProps?.variant === 'success';
 
     return (
       <View style={styles.wrapper}>
-        {title ? (
-          <InputTitle {...{ title, inputTitleProps }} inputStyle={inputTitleProps?.style} />
-        ) : null}
+        {title ? <InputTitle {...{ title, inputTitleProps }} /> : null}
         <PressableInputWrapper onInputPress={onInputPress}>
           <BaseInput
             isSuccess={isSuccess}
             isError={isError}
-            ref={ref}
             onInputPress={onInputPress}
             {...rest}
+            ref={ref}
           />
         </PressableInputWrapper>
-        {subText ? (
-          <SubTextView {...{ subText, subTextProps }} subTextInputStyle={subTextProps?.style} />
-        ) : null}
-        {isError ? <SubTextView subText={errorText} subTextProps={{ variant: 'error' }} /> : null}
-        {isSuccess ? (
-          <SubTextView subText={successText} subTextProps={{ variant: 'success' }} />
-        ) : null}
+        {message ? <MessageView {...{ message, messageProps }} /> : null}
       </View>
     );
   }

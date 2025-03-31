@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import { AppConst, ROUTES } from '../constants';
 import { useTheme } from '../hooks';
-import { DetailsScreen, HomeScreen, SigninScreen } from '../modules';
+import { ButtonScreen, HomeScreen, InputScreen, TextScreen } from '../modules';
 import { Colors } from '../theme';
 import { getLinkConfiguration, navigationRef } from '../utils';
 
@@ -12,16 +12,18 @@ import { getLinkConfiguration, navigationRef } from '../utils';
  * @typedef {object} RootStackParamList is an object type with keys that are the route names
  * and values that are the route params
  * @property {undefined} [Home] - The Home screen.
- * @property {undefined} [Details] - The Details screen.
- * @property {undefined} [SignIn] - The SignIn screen.
+ * @property {undefined} [Button] - The Button component screen.
+ * @property {undefined} [Input] - The Input component screen.
+ * @property {undefined} [Text] - The Text component screen.
  */
 // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 type RootStackParamList = {
   // add types for route params here e.g. -
   // [ROUTES.Profile]: { id: string };
   [ROUTES.Home]: undefined;
-  [ROUTES.Details]: undefined;
-  [ROUTES.SignIn]: undefined;
+  [ROUTES.Button]: undefined;
+  [ROUTES.Input]: undefined;
+  [ROUTES.Text]: undefined;
 };
 
 /**
@@ -67,8 +69,9 @@ const AppContainer = () => {
     >
       <RootStack.Navigator>
         <RootStack.Screen name={ROUTES.Home} component={HomeScreen} />
-        <RootStack.Screen name={ROUTES.SignIn} component={SigninScreen} />
-        <RootStack.Screen name={ROUTES.Details} component={DetailsScreen} />
+        <RootStack.Screen name={ROUTES.Button} component={ButtonScreen} />
+        <RootStack.Screen name={ROUTES.Input} component={InputScreen} />
+        <RootStack.Screen name={ROUTES.Text} component={TextScreen} />
       </RootStack.Navigator>
     </NavigationContainer>
   );

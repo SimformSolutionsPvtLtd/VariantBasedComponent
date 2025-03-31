@@ -22,21 +22,18 @@ export type InputVariant = keyof typeof inputVariantStyles;
 export interface InputTitleProps {
   title?: string;
   inputTitleProps?: Omit<TextProps, 'children'>;
-  inputStyle?: StyleProp<TextStyle>;
 }
 
 /**
- * Interface for SubTexView component properties.
- * @interface SubTexViewProps
- *
- * @property {string} [subText] - Optional text to display as sub-text.
- * @property {Omit<TextProps, 'children'>} [subTextProps] - Optional props for the sub-text component, excluding 'children' property.
- * @property {StyleProp<TextStyle>} [subTextInputStyle] - Optional style object for customizing the sub-text appearance.
+ * Interface for Message View Properties
+ * @interface MessageViewProps
+ * @property {string} [message] - The message text to be displayed
+ * @property {('error'|'success'|'warning'|'info')} [messageType] - The type of message which determines its visual styling
+ * @property {Omit<TextProps, 'children'>} [messageProps] - Additional text properties excluding children prop
  */
-export interface SubTexViewProps {
-  subText?: string;
-  subTextProps?: Omit<TextProps, 'children'>;
-  subTextInputStyle?: StyleProp<TextStyle>;
+export interface MessageViewProps {
+  message?: string;
+  messageProps?: Omit<TextProps, 'children'>;
 }
 
 /**
@@ -67,33 +64,15 @@ export interface BaseInputProps extends TextInputProps {
   onInputPress?: () => void;
 }
 
-// export interface PressableWrapperProps extends BaseInputProps {
-//   onInputPress?: () => void;
-// }
-
 /**
  * Comprehensive properties for configuring the Input component.
  *
  * @interface InputProps
- * @extends {TextInputProps} Inherits properties from React Native's TextInput
- * @extends {Omit<InputTitleProps, 'inputStyle'>} Includes input title properties except inputStyle
- * @extends {Omit<SubTexViewProps, 'subTextInputStyle'>} Includes sub text properties except subTextInputStyle
- *
- * @property {InputVariant} [variant] - Visual style variant of the input
- * @property {boolean} enableHighlight - Whether input should highlight on interaction
- * @property {StyleProp<ViewStyle>} containerStyle - Custom container styles
- * @property {StyleProp<TextStyle>} textInputStyle - Custom text input styles
- * @property {Pick<SideIconProps, 'icon'>} [leftIcon] - Configuration for left icon
- * @property {Partial<SideIconProps>} [rightIcon] - Configuration for right icon
- * @property {ReactNode} [children] - Child elements to render
- * @property {() => void} [onInputPress] - Callback when input is pressed
- * @property {string} [errorText] - Error message to display
- * @property {string} [successText] - Success message to display
+ * @extends {Omit<BaseInputProps, 'isError' | 'isSuccess'>} Base input properties excluding error/success flags
+ * @extends {InputTitleProps} Properties for input title
+ * @extends {MessageViewProps} Properties for message display
  */
 export interface InputProps
   extends Omit<BaseInputProps, 'isError' | 'isSuccess'>,
-    Omit<InputTitleProps, 'inputStyle'>,
-    Omit<SubTexViewProps, 'subTextInputStyle'> {
-  errorText?: string;
-  successText?: string;
-}
+    InputTitleProps,
+    MessageViewProps {}

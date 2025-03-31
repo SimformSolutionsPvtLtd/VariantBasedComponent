@@ -41,7 +41,7 @@ export const inputStyles = (theme: ThemeMode) =>
       borderColor: Colors[theme]?.gray,
       borderRadius: scale(8),
       borderWidth: scale(0.7, true),
-      maxHeight: scale(44),
+      // maxHeight: scale(44),
       paddingHorizontal: scale(14),
       paddingVertical: scale(10)
     },

@@ -6,8 +6,6 @@ import { ActivityIndicator, type ActivityIndicatorProps } from 'react-native';
  * @param {ActivityIndicatorProps} rest - the props for the spinner component.
  * @returns {React.ReactElement} A React Element.
  */
-const Spinner = ({ ...rest }: ActivityIndicatorProps) => {
-  return <ActivityIndicator {...rest} />;
-};
+const Spinner = ({ ...rest }: ActivityIndicatorProps) => <ActivityIndicator {...rest} />;
 
 export default Spinner;

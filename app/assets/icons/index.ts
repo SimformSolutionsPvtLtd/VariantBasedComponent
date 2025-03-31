@@ -4,5 +4,7 @@
 export default {
   backArrow: require('./backArrow.png'),
   eye: require('./eye.png'),
+  user: require('./user.png'),
+  info: require('./info.png'),
   eyeOff: require('./eyeOff.png')
 };

@@ -21,7 +21,7 @@ import type { ButtonProps } from './ButtonTypes';
 const Button = ({
   variant = 'solid',
   title,
-  isLoading = false,
+  loading = false,
   disabled,
   onPress,
   titleProps,
@@ -57,11 +57,11 @@ const Button = ({
         disabled && buttonStyles.disabledButtonStyle,
         typeof style === 'function' ? style({ pressed }) : style
       ]}
-      disabled={isLoading || disabled}
+      disabled={loading || disabled}
       onPress={handleOnPress}
       {...rest}
     >
-      {isLoading ? (
+      {loading ? (
         <Spinner color={activityIndicatorColor(variant, theme)} />
       ) : (
         <Text

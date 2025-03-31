@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
-import { Colors, type ThemeMode } from '../../theme';
+import { Fonts } from '../../assets';
+import { Colors, scale, type ThemeMode } from '../../theme';
 
 /**
  * A StyleSheet object that contains all of the home screen styles.
@@ -8,12 +9,17 @@ import { Colors, type ThemeMode } from '../../theme';
  */
 const styles = (theme: ThemeMode) =>
   StyleSheet.create({
-    screenView: {
+    textContainer: {
+      alignItems: 'center',
       backgroundColor: Colors[theme]?.white,
-      flex: 1
+      justifyContent: 'center',
+      paddingTop: scale(40),
+      rowGap: scale(20)
     },
-    textView: {
-      color: Colors[theme]?.black
+
+    title: {
+      fontFamily: Fonts.bold,
+      fontSize: scale(20)
     }
   });
 

@@ -4,7 +4,7 @@
 export enum ROUTES {
   RootMain = 'Main',
   Home = 'Home',
-  Details = 'Details',
-  SignIn = 'SignIn',
-  NotFound = 'NotFound'
+  Button = 'Button',
+  Text = 'Text',
+  Input = 'Input'
 }

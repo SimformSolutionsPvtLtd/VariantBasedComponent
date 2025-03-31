@@ -68,8 +68,8 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = VariantBasedComponent/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = VariantBasedComponent/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = VariantBasedComponent/main.m; sourceTree = "<group>"; };
-		160827BE67CE4F8DB28DF47D /* index.ts */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = index.ts; path = ../app/assets/fonts/index.ts; sourceTree = "<group>"; };
-		18CDAD3F2E0E426491FCE9F4 /* Inter-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-SemiBold.ttf"; path = "../app/assets/fonts/Inter-SemiBold.ttf"; sourceTree = "<group>"; };
+		160827BE67CE4F8DB28DF47D /* index.ts */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = index.ts; path = ../app/assets/fonts/index.ts; sourceTree = "<group>"; };
+		18CDAD3F2E0E426491FCE9F4 /* Inter-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-SemiBold.ttf"; path = "../app/assets/fonts/Inter-SemiBold.ttf"; sourceTree = "<group>"; };
 		1D1D359887EAD3E496935F31 /* Pods-VariantBasedComponent.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VariantBasedComponent.release.xcconfig"; path = "Target Support Files/Pods-VariantBasedComponent/Pods-VariantBasedComponent.release.xcconfig"; sourceTree = "<group>"; };
 		20CB1397EE71CED415423D01 /* libPods-VariantBasedComponent.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VariantBasedComponent.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2945067DB50154F8084FAA3E /* Pods-VariantBasedComponent.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VariantBasedComponent.debug.xcconfig"; path = "Target Support Files/Pods-VariantBasedComponent/Pods-VariantBasedComponent.debug.xcconfig"; sourceTree = "<group>"; };
@@ -81,14 +81,14 @@
 		36DBED7F2B8E20A9002504C7 /* VariantBasedComponent-Stage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VariantBasedComponent-Stage.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		36DBED802B8E20AA002504C7 /* VariantBasedComponentStage-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "VariantBasedComponentStage-Info.plist"; sourceTree = "<group>"; };
 		42A1176DCFDF880006484AA0 /* Pods-VariantBasedComponent-VariantBasedComponentTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VariantBasedComponent-VariantBasedComponentTests.debug.xcconfig"; path = "Target Support Files/Pods-VariantBasedComponent-VariantBasedComponentTests/Pods-VariantBasedComponent-VariantBasedComponentTests.debug.xcconfig"; sourceTree = "<group>"; };
-		5C6C453ED04941283D9CFE86 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		5C6C453ED04941283D9CFE86 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = VariantBasedComponent/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		9832E2D5DDB64988BBEA0D05 /* Inter-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Regular.ttf"; path = "../app/assets/fonts/Inter-Regular.ttf"; sourceTree = "<group>"; };
+		9832E2D5DDB64988BBEA0D05 /* Inter-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Regular.ttf"; path = "../app/assets/fonts/Inter-Regular.ttf"; sourceTree = "<group>"; };
 		99A83B33EF9906F4FF7D0E62 /* Pods-VariantBasedComponent-Dev.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VariantBasedComponent-Dev.release.xcconfig"; path = "Target Support Files/Pods-VariantBasedComponent-Dev/Pods-VariantBasedComponent-Dev.release.xcconfig"; sourceTree = "<group>"; };
 		9CB2F425A2B3F27DBF9997ED /* Pods-VariantBasedComponent-VariantBasedComponentTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VariantBasedComponent-VariantBasedComponentTests.release.xcconfig"; path = "Target Support Files/Pods-VariantBasedComponent-VariantBasedComponentTests/Pods-VariantBasedComponent-VariantBasedComponentTests.release.xcconfig"; sourceTree = "<group>"; };
-		9EE2EFF3723547889955E38E /* Inter-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Bold.ttf"; path = "../app/assets/fonts/Inter-Bold.ttf"; sourceTree = "<group>"; };
+		9EE2EFF3723547889955E38E /* Inter-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Bold.ttf"; path = "../app/assets/fonts/Inter-Bold.ttf"; sourceTree = "<group>"; };
 		BA57580A655AB301A7DFA701 /* libPods-VariantBasedComponent-Stage.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VariantBasedComponent-Stage.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C80B2AF0BEBE4DDF8D37B155 /* Inter-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Medium.ttf"; path = "../app/assets/fonts/Inter-Medium.ttf"; sourceTree = "<group>"; };
+		C80B2AF0BEBE4DDF8D37B155 /* Inter-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Medium.ttf"; path = "../app/assets/fonts/Inter-Medium.ttf"; sourceTree = "<group>"; };
 		CDFECCA6ECB1D0C15A24AA53 /* libPods-VariantBasedComponent-Dev.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VariantBasedComponent-Dev.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF62964BFF36DFE6CD1222C2 /* Pods-VariantBasedComponent-Stage.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VariantBasedComponent-Stage.debug.xcconfig"; path = "Target Support Files/Pods-VariantBasedComponent-Stage/Pods-VariantBasedComponent-Stage.debug.xcconfig"; sourceTree = "<group>"; };
 		D671084829012EA000E17C87 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
@@ -209,7 +209,6 @@
 				160827BE67CE4F8DB28DF47D /* index.ts */,
 			);
 			name = Resources;
-			path = "";
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
@@ -403,6 +402,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = K7XJG666ZW;
 						LastSwiftMigration = 1120;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
@@ -994,6 +994,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = K7XJG666ZW;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = VariantBasedComponent/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1018,6 +1019,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = K7XJG666ZW;
 				INFOPLIST_FILE = VariantBasedComponent/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.0;
